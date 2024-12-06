@@ -17,6 +17,20 @@ mongoose.connect(mongoURI, {
   .then(() => console.log('MongoDB Connected'))
   .catch(err => console.log('MongoDB Connection Error: ', err));
   
+
+app.get("/GetAllQ", async (req,res)=>{
+
+  try {
+    const data = await QuestionsModel.find({});
+    
+    res.json({ success: true, msg: "server is getting", data1: data });
+} catch (err) {
+    console.error('Error fetching data:', err);
+    res.status(500).send("Error fetching data");
+}
+
+})
+
 app.listen(port, ()=>{
     console.log(`server is listening on port ${port}`)
 })
