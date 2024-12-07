@@ -65,27 +65,42 @@ mongoose.connect(mongoURI, {
   });
   
 
-
-//getting qns from db
-
-app.get('/Fetch_Question', async (req, res) => {
-  try {
-    const { Q_Num } = req.query; // Use req.query instead of req.body
-    if (!Q_Num) {
-      return res.status(400).send({ message: 'Q_Num is required' });
+  app.get('/Fetch_Question', async (req, res) => {
+    try {
+      const { Q_Num, userEmail } = req.query;
+      if (!Q_Num || !userEmail) {
+        return res.status(400).send({ message: 'Q_Num and userEmail are required' });
+      }
+  
+      // Find the user by their email
+      const user = await UsersModel.findOne({ UserEmail : userEmail });
+      if (!user) {
+        return res.status(404).send({ message: 'User not found' });
+      }
+  
+      // Check if the requested question requires solving the previous question
+      if (Q_Num === '2' || Q_Num === '3' || Q_Num === '4') {
+        if (user.Qns_Solved.length === 0) {
+          return res.status(400).send({ message: 'Pehle wala solve kar bhai' });
+        }
+      }
+  
+      // Fetch the question from the database
+      const question = await QuestionsModel.findOne({ Q_Num: Number(Q_Num) }, '-Flag');
+      if (!question) {
+        return res.status(404).send({ message: 'Question not found' });
+      }
+  
+      // Send the question to the frontend
+      console.log(question);
+      res.send(question);
+  
+    } catch (error) {
+      console.error('Error fetching question:', error);
+      res.status(500).send({ message: 'Error fetching the question' });
     }
-
-    const question = await QuestionsModel.findOne({ Q_Num: Number(Q_Num) }, '-Flag');
-    if (!question) {
-      return res.status(404).send({ message: 'Question not found' });
-    }
-    console.log(question);
-    res.send(question);
-  } catch (error) {
-    console.error('Error fetching question:', error);
-    res.status(500).send({ message: 'Error fetching the question' });
-  }
-});
+  });
+  
 
 
 app.get("/GetAllQ", async (req,res)=>{
@@ -104,8 +119,6 @@ app.get("/GetAllQ", async (req,res)=>{
 
 app.post("/validateAnswer", async (req, res) => {
   const { userEmail, Qno, submittedAns } = req.body;
-
- 
 
   // Validate input
   if (!userEmail || !Qno || !submittedAns) {
@@ -160,3 +173,43 @@ app.post("/validateAnswer", async (req, res) => {
 app.listen(port, ()=>{
     console.log(`server is listening on port ${port}`)
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//getting qns from db
+
+// app.get('/Fetch_Question', async (req, res) => {
+//   try {
+//     const { Q_Num , userEmail} = req.query; // Use req.query instead of req.body
+//     if (!Q_Num ) {
+//       return res.status(400).send({ message: 'Q_Num is required' });
+//     }
+
+//       const question = await QuestionsModel.findOne({ Q_Num: Number(Q_Num) }, '-Flag');
+//       if (!question) {
+//         return res.status(404).send({ message: 'Question not found' });
+//       }
+//       console.log(question);
+//       res.send(question);
+    
+
+
+//   } catch (error) {
+//     console.error('Error fetching question:', error);
+//     res.status(500).send({ message: 'Error fetching the question' });
+//   }
+// });

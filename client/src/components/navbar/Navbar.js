@@ -7,7 +7,7 @@ const Navbar = () => {
 
   return (
     <nav className="navbar">
-      <h2>Quiz App</h2>
+      <a href="/"> <h2>Quiz App</h2></a>
       <div className="auth-buttons">
         {!isAuthenticated ? (
           <button onClick={() => loginWithRedirect()}>Log In</button>

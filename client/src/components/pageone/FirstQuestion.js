@@ -100,7 +100,7 @@ function FirstQuestion() {
   // Fetch question when user is ready
   useEffect(() => {
     if (!isLoading && isAuthenticated && user?.email) {
-      fetchQuestions(user.email, "01");
+      fetchQuestions(user.email, "1");
     }
     LoadUser();
   }, [isLoading, isAuthenticated, user]);

@@ -32,7 +32,7 @@ function MultipleQuestions() {
 
       for (let i = 0; i < questionNumbers.length; i++) {
         const response = await axios.get("http://localhost:5000/Fetch_Question", {
-          params: { Q_Num: questionNumbers[i] },
+          params: { Q_Num: questionNumbers[i],userEmail:user.email },
         });
         fetchedQuestions.push(response.data);
       }

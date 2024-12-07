@@ -5,12 +5,17 @@
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  
 }
 
 .navbar h2 {
   color: white;
   margin: 0;
   font-size: 1.5rem;
+  text-decoration: none;
+}
+.a {
+  text-decoration: none;
 }
 
 .auth-buttons button {
