@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
+import axios from "axios"
 import "./PageThree.css";
 
 function LastQuestion() {
@@ -9,30 +11,54 @@ function LastQuestion() {
   const [isVerified, setIsVerified] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [showError, setShowError] = useState(null);
+
+  const { user, isAuthenticated, isLoading } = useAuth0();
+  const [userInfo, setUserInfo] = useState(null);
+  const [isSolved5, setIsSolved5] = useState(false);
+
   const navigate = useNavigate();
+  const fetchQuestions = async (userEmail, Q_Num) => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/Fetch_Question?userEmail=${userEmail}&Q_Num=${Q_Num}`, // Use query params
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-  useEffect(() => {
-    fetch("http://localhost:5000/api/question/another")
-      .then((res) => res.json())
-      .then((data) => setQuestion(data))
-      .catch((err) => {
-        console.error("Error fetching question:", err);
-        setShowError("Failed to load question. Please try again.");
-      });
-  }, []);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
 
+      const data = await response.json();
+      setQuestion(data);
+    } catch (err) {
+      console.error("Error fetching question:", err);
+    }
+  };
+
+  // Verify answer
   const handleVerify = () => {
     if (!selectedOption) {
       setShowError("Please enter an answer");
       return;
     }
 
-    fetch("http://localhost:5000/api/checkAnswer", {
+    if (!isAuthenticated || !user?.email) {
+      setShowError("User authentication failed. Please log in.");
+      return;
+    }
+
+    fetch("http://localhost:5000/validateAnswer", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        questionId: question._id.$oid,
-        selectedOption,
+        Qno: '5',
+        submittedAns: selectedOption,
+        userEmail: user.email,
       }),
     })
       .then((res) => res.json())
@@ -47,10 +73,39 @@ function LastQuestion() {
         }
       })
       .catch((err) => {
-        console.error("Error checking answer:", err);
         setShowError("There was an error. Please try again.");
+        console.error("Error checking answer:", err);
       });
   };
+
+  //getting user info
+  const LoadUser = async () => {
+    if (isAuthenticated && user?.email) {
+      try {
+        // Sending the email as a query parameter in the GET request
+        const response = await axios.get(`http://localhost:5000/getUserInfo`, {
+          params: { email: user.email },  // Email is sent as a query parameter
+        });
+  
+        setUserInfo(response.data); 
+         setIsSolved5( response.data.Qns_Solved.includes(5));
+        
+      } catch (err) {
+        console.error('Error loading user info:', err);
+      }
+    }
+
+  };
+  
+
+
+  // Fetch question when user is ready
+  useEffect(() => {
+    if (!isLoading && isAuthenticated && user?.email) {
+      fetchQuestions(user.email, "5");
+    }
+    LoadUser();
+  }, [isLoading, isAuthenticated, user]);
 
   const handleSubmit = () => {
     if (!isVerified) {
@@ -71,7 +126,11 @@ function LastQuestion() {
     <div className="question-container">
       {!showSuccess ? (
         <div className="question-box">
-          <h1>{question.Q_Title}</h1>
+          <div className="question-header">
+          {/* <span className="question-number">Question 01.</span> */}
+          <h1 className="question-title">{question.Q_Title}</h1>
+          <span>       <p>{isSolved5 ? "solved!" : "not solved."}</p> </span>
+        </div>
           <p>{question.Q_Des}</p>
           <img src={question.Q_Img} alt="Question" className="question-image" />
           <div className="input-verify-container">
@@ -86,7 +145,7 @@ function LastQuestion() {
             <button onClick={handleVerify} className="verify-button">
               Verify
             </button>
-            <button onClick={handleSubmit} className="submit-button" disabled={!isVerified}>
+            <button onClick={handleSubmit} className="submit-button" disabled={!isSolved5}>
               Submit
             </button>
           </div>

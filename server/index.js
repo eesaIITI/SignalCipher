@@ -10,47 +10,83 @@ require('dotenv').config();
 const mongoURI = process.env.MONGO_URI;
 const port = process.env.PORT || 5000;
 
+app.use(cors({
+  origin: 'http://localhost:3000', // Replace with your frontend's URL
+  methods: ['GET', 'POST'],
+  credentials: true,
+}));
+
+app.use(express.json()); 
+
 mongoose.connect(mongoURI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
   .then(() => console.log('MongoDB Connected'))
   .catch(err => console.log('MongoDB Connection Error: ', err));
-  
-  app.post ('/Userinfo', async (req,res)=>{
 
-    const {UserEmail} = req.params;
+
+  //new user
+  app.post('/Userinfo', async (req, res) => {
+    // Extract UserEmail from the request body
+    const { UserEmail } = req.body;
+  
+    // Check if the user already exists in the database
     const exist = await UsersModel.findOne({ UserEmail });
     if (exist) {
-        return res.status(200).send("Already exists");
+      return res.status(200).send("Already exists");
     }
+  
     try {
-           const NewUser = new UsersModel (
-            {  UserEmail }
-        );
-       await NewUser.save();
-       res.send("Data Inserted")
+      // Create a new user and save it to the database
+      const NewUser = new UsersModel({ UserEmail });
+      await NewUser.save();
+      res.send("Data Inserted");
     } catch (err) {
-        console.error('Error inserting data:', err);
-        res.status(500).send("Error inserting data");
+      console.error('Error inserting data:', err);
+      res.status(500).send("Error inserting data");
     }
-})
+  });
+  
+  //getting user info
+  app.get("/getUserInfo", async (req, res) => {
+    const { email } = req.query;  // Use req.query to get the email from the URL
+  
+    try {
+      const user = await UsersModel.findOne({ UserEmail: email });
+      if (!user) {
+        return res.status(404).send({ message: 'User not found' });
+      }
+      res.status(200).send(user); // Send the user data back
+    } catch (error) {
+      console.error('Error fetching user info:', error);
+      res.status(500).send({ message: 'Internal Server Error' });
+    }
+  });
+  
 
-app.get('/GetQby/:Q_Num', async (req, res) => {
+
+//getting qns from db
+
+app.get('/Fetch_Question', async (req, res) => {
   try {
-    const { Q_Num } = req.params;
-    const question = await QuestionsModel.findOne({ Q_Num: Number(Q_Num) });
+    const { Q_Num } = req.query; // Use req.query instead of req.body
+    if (!Q_Num) {
+      return res.status(400).send({ message: 'Q_Num is required' });
+    }
 
+    const question = await QuestionsModel.findOne({ Q_Num: Number(Q_Num) }, '-Flag');
     if (!question) {
       return res.status(404).send({ message: 'Question not found' });
     }
-
+    console.log(question);
     res.send(question);
   } catch (error) {
-    console.error('error fetching question:', error);
+    console.error('Error fetching question:', error);
     res.status(500).send({ message: 'Error fetching the question' });
   }
 });
+
 
 app.get("/GetAllQ", async (req,res)=>{
 
@@ -65,8 +101,11 @@ app.get("/GetAllQ", async (req,res)=>{
 
 })
 
-app.post('/validateAnswer', async (req, res) => {
+
+app.post("/validateAnswer", async (req, res) => {
   const { userEmail, Qno, submittedAns } = req.body;
+
+ 
 
   // Validate input
   if (!userEmail || !Qno || !submittedAns) {
@@ -80,12 +119,15 @@ app.post('/validateAnswer', async (req, res) => {
       return res.status(404).send({ message: 'Question not found' });
     }
 
+  
+
     // Check if the submitted answer matches the correct answer
-    const isCorrect = question.flag === submittedAns;
+    const isCorrect = question.Flag === submittedAns;
+   
 
     if (!isCorrect) {
       return res.status(200).send({ 
-        canProceed: false, 
+        isCorrect: false, 
         message: 'Incorrect answer. Please try again.' 
       });
     }
@@ -97,14 +139,14 @@ app.post('/validateAnswer', async (req, res) => {
     }
 
     // Check if the question is already solved
-    if (!user.QnsSolved.includes(Qno)) {
-      user.QnsSolved.push(Qno);
+    if (!user.Qns_Solved.includes(Qno)) {
+      user.Qns_Solved.push(Qno);
       await user.save();
     }
 
     // Allow the user to proceed
     res.status(200).send({ 
-      canProceed: true, 
+      isCorrect: true, 
       message: 'Correct answer! You can proceed to the next question.' 
     });
   } catch (error) {
@@ -112,6 +154,7 @@ app.post('/validateAnswer', async (req, res) => {
     res.status(500).send({ message: 'Internal Server Error' });
   }
 });
+
 
 
 app.listen(port, ()=>{
