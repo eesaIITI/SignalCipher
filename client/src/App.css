@@ -9,21 +9,7 @@ body {
   text-align: center;
 }
  
- button {
-  padding: 10px 20px;
-  margin: 5px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  background-color: #080808;
-  color: white;
-  font-size: 16px;
-}
-
-button:hover {
-  background-color: grey;
-}
-
+ 
 h1, h2 {
   margin: 20px 0;
 } 
