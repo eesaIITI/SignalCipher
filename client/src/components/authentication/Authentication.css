@@ -26,6 +26,23 @@
   color: #333;
   font-size: 1rem;
   line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+
+.center-button {
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 1.5rem;
+  transition: background-color 0.3s ease;
+}
+
+.center-button:hover {
+  background-color: #3a7bc8;
 }
 
 @media (max-width: 768px) {
@@ -41,4 +58,10 @@
   .para {
     font-size: 0.9rem;
   }
+
+  .center-button {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
 }
+

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import axios from "axios"
+import axios from "axios";
 import "./PageThree.css";
 
 function LastQuestion() {
@@ -17,10 +17,11 @@ function LastQuestion() {
   const [isSolved5, setIsSolved5] = useState(false);
 
   const navigate = useNavigate();
+
   const fetchQuestions = async (userEmail, Q_Num) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/Fetch_Question?userEmail=${userEmail}&Q_Num=${Q_Num}`, // Use query params
+        `http://localhost:5000/Fetch_Question?userEmail=${userEmail}&Q_Num=${Q_Num}`,
         {
           method: "GET",
           headers: {
@@ -40,7 +41,6 @@ function LastQuestion() {
     }
   };
 
-  // Verify answer
   const handleVerify = () => {
     if (!selectedOption) {
       setShowError("Please enter an answer");
@@ -78,28 +78,22 @@ function LastQuestion() {
       });
   };
 
-  //getting user info
   const LoadUser = async () => {
     if (isAuthenticated && user?.email) {
       try {
-        // Sending the email as a query parameter in the GET request
         const response = await axios.get(`http://localhost:5000/getUserInfo`, {
-          params: { email: user.email },  // Email is sent as a query parameter
+          params: { email: user.email },
         });
   
         setUserInfo(response.data); 
-         setIsSolved5( response.data.Qns_Solved.includes(5));
+        setIsSolved5(response.data.Qns_Solved.includes(5));
         
       } catch (err) {
         console.error('Error loading user info:', err);
       }
     }
-
   };
-  
 
-
-  // Fetch question when user is ready
   useEffect(() => {
     if (!isLoading && isAuthenticated && user?.email) {
       fetchQuestions(user.email, "5");
@@ -125,44 +119,45 @@ function LastQuestion() {
   return (
     <div className="question-container">
       {!showSuccess ? (
-        <div className="question-box">
-          <div className="question-header">
-          {/* <span className="question-number">Question 01.</span> */}
-          <h1 className="question-title">{question.Q_Title}</h1>
-          <span>       <p>{isSolved5 ? "solved!" : "not solved."}</p> </span>
-        </div>
-          <p>{question.Q_Des}</p>
-          <img src={question.Q_Img} alt="Question" className="question-image" />
-          <div className="input-verify-container">
-            <input
-              type="text"
-              placeholder="Your answer"
-              value={selectedOption}
-              onChange={(e) => setSelectedOption(e.target.value)}
-              className="answer-input"
-              aria-label="Your answer"
-            />
-            <button onClick={handleVerify} className="verify-button">
-              Verify
+        <>
+          <div className="question-box">
+            <div className="question-header">
+              <h1 className="question-title"><span style={{color:"orange"}}>5.</span>{question.Q_Title}</h1>
+              <span className={isSolved5 ? "solved" : "unsolved"}>
+                {isSolved5 ? "Solved!" : "Unsolved"}
+              </span>
+            </div>
+            <p className="para1">{question.Q_Des}</p>
+            <img src={question.Q_Img} alt="Question" className="question-image" />
+            <div className="input-verify-container">
+              <input
+                type="text"
+                placeholder="Your answer"
+                value={selectedOption}
+                onChange={(e) => setSelectedOption(e.target.value)}
+                className="answer-input"
+                aria-label="Your answer"
+              />
+              <button onClick={handleVerify} className="verify-button">
+                Verify
+              </button>
+            </div>
+            {isCorrect && <p className="correct-message">✅ Correct Answer</p>}
+            {showError && <p className="error-message">{showError}</p>}
+          </div>
+          <div className="button-container">
+            <button onClick={handlePrevious} className="previous-button">
+              Previous
             </button>
             <button onClick={handleSubmit} className="submit-button" disabled={!isSolved5}>
               Submit
             </button>
           </div>
-          {isCorrect && <p className="correct-message">✅ Correct Answer</p>}
-          {showError && <p className="error-message">{showError}</p>}
-        </div>
+        </>
       ) : (
         <div className="success-message">
           <h1>🎉 Congratulations! 🎉</h1>
           <p>You have successfully qualified all rounds. Well done!</p>
-        </div>
-      )}
-      {!showSuccess && (
-        <div className="button-container">
-          <button onClick={handlePrevious} className="previous-button">
-            Previous
-          </button>
         </div>
       )}
     </div>

@@ -43,7 +43,6 @@
 
 .input-verify-container {
   display: flex;
-  flex-direction: column;
   align-items: center;
   width: 100%;
   max-width: 400px;
@@ -51,12 +50,12 @@
 }
 
 .answer-input {
-  width: 100%;
+  flex-grow: 1;
   padding: 0.5rem;
-  margin-bottom: 1rem;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 4px 0 0 4px;
   font-size: 1rem;
+  height: 28px;
 }
 
 .verify-button, .navigation-button {
@@ -64,12 +63,18 @@
   color: white;
   border: none;
   padding: 0.5rem 1rem;
-  border-radius: 4px;
+  border-radius: 0 4px 4px 0;
   cursor: pointer;
   transition: all 0.3s ease;
   font-size: 1rem;
-  width: 200px;
+  height: 40px;
+  width: 100px;
+}
+
+.navigation-button {
+  width: 150px;
   margin-bottom: 0.5rem;
+  border-radius: 4px;
 }
 
 .verify-button:hover, .navigation-button:hover {
@@ -113,10 +118,29 @@
     width: 90vw;
   }
 
+  .input-verify-container {
+    flex-direction: column;
+  }
+
   .answer-input,
-  .verify-button,
-  .navigation-button {
+  .verify-button {
     width: 100%;
+    border-radius: 4px;
+  }
+
+  .verify-button {
+    margin-top: 0.5rem;
   }
 }
+.para1{
+  width: 80%;
+}
+.solved {
+  color: green;
+  font-weight: 600;
+}
 
+.unsolved {
+  color: rgba(237, 237, 9, 0.89);
+  font-weight: 600;
+}

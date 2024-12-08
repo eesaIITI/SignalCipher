@@ -14,11 +14,12 @@ function FirstQuestion() {
   const { user, isAuthenticated, isLoading } = useAuth0();
   const [userInfo, setUserInfo] = useState(null);
   const [isSolved, setIsSolved] = useState(false);
+
   // Function to fetch questions
   const fetchQuestions = async (userEmail, Q_Num) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/Fetch_Question?userEmail=${userEmail}&Q_Num=${Q_Num}`, // Use query params
+        `http://localhost:5000/Fetch_Question?userEmail=${userEmail}&Q_Num=${Q_Num}`,
         {
           method: "GET",
           headers: {
@@ -65,6 +66,7 @@ function FirstQuestion() {
           setIsCorrect(true);
           setIsVerified(true);
           setShowError(null);
+          setIsSolved(true);
         } else {
           setIsCorrect(false);
           setShowError("Incorrect answer! Please try again.");
@@ -80,22 +82,18 @@ function FirstQuestion() {
   const LoadUser = async () => {
     if (isAuthenticated && user?.email) {
       try {
-        // Sending the email as a query parameter in the GET request
         const response = await axios.get(`http://localhost:5000/getUserInfo`, {
-          params: { email: user.email },  // Email is sent as a query parameter
+          params: { email: user.email },
         });
   
         setUserInfo(response.data); 
-         setIsSolved( response.data.Qns_Solved.includes(1));
+        setIsSolved(response.data.Qns_Solved.includes(1));
         
       } catch (err) {
         console.error('Error loading user info:', err);
       }
     }
-
   };
-  
-
 
   // Fetch question when user is ready
   useEffect(() => {
@@ -105,12 +103,11 @@ function FirstQuestion() {
     LoadUser();
   }, [isLoading, isAuthenticated, user]);
 
-
   const handleNext = async () => {
     await LoadUser();
     if (!userInfo) {
       console.log("userInfo is not loaded yet.");
-      return; // Early return if userInfo is not available
+      return;
     }
   
     const isVal = userInfo.Qns_Solved.includes(1); 
@@ -124,41 +121,39 @@ function FirstQuestion() {
   
   // Loading state
   if (isLoading || !question) return <div className="loading">Loading...</div>;
+
   return (
     <div className="question-container">
       <div className="question-box">
         <div className="question-header">
-          {/* <span className="question-number">Question 01.</span> */}
-          <h1 className="question-title">{question.Q_Title}</h1>
-          <span>       <p>{isSolved ? "solved!" : "not solved."}</p> </span>
+          <h1 className="question-title"><span style={{color:"orange"}}>1. </span>{question.Q_Title}</h1>
+          <span className={isSolved ? "solved" : "unsolved"}>
+            {isSolved ? "Solved!" : "Not solved"}
+          </span>
         </div>
-        <p>{question.Q_Des}</p>
-  
-        {/* <img src={question.Q_Img} alt="Question" className="question-image" /> */}
-  
+        <p className="question-description">{question.Q_Des}</p>
+
         <div className="input-verify-container">
-          <input
-            type="text"
-            placeholder="Your answer"
-            value={selectedOption}
-            onChange={(e) => setSelectedOption(e.target.value)}
-            className="answer-input"
-          />
-  
-          <button onClick={handleVerify} className="verify-button">
-            Verify
-          </button>
+          <div className="input-button-group">
+            <input
+              type="text"
+              placeholder="Your answer"
+              value={selectedOption}
+              onChange={(e) => setSelectedOption(e.target.value)}
+              className="answer-input"
+            />
+            <button onClick={handleVerify} className="verify-button">
+              Verify
+            </button>
+          </div>
         </div>
-  
+
         {isCorrect && <p className="correct-message">✅ Correct Answer</p>}
         {showError && !isCorrect && <p className="error-message">{showError}</p>}
       </div>
-  
       <div className="next-button-container">
         <button
-          onClick={() => {
-            handleNext();
-          }}
+          onClick={handleNext}
           className="next-button"
         >
           Next
@@ -166,8 +161,6 @@ function FirstQuestion() {
       </div>
     </div>
   );
-  
-  
 }
 
 export default FirstQuestion;
