@@ -145,11 +145,14 @@ function MultipleQuestions() {
       {/* Question 2 */}
       <div className="question-box">
         <div className="question-content">
+      
         <div className="question-header">
-          <h2 className="question-title">{questions[0]?.Q_Title}</h2>
-          <span>       <p>{isSolved2 ? "solved!" : "not solved."}</p> </span>
+          <h2 className="question-title"><span style={{color:"orange"}}>2.</span> {questions[0]?.Q_Title}</h2>
+          <span className={isSolved2 ? "solved" : "unsolved"}>
+            {isSolved2 ? "Solved!" : "Not solved"}
+          </span>
           </div>
-          <p>{questions[0]?.Q_Des}</p>
+          <p className="para1">{questions[0]?.Q_Des}</p>
           <img
             src={questions[0]?.Q_Img}
             alt="Question 1"
@@ -181,11 +184,14 @@ function MultipleQuestions() {
       {/* Question 3 */}
       <div className="question-box">
         <div className="question-content">
+        
         <div className="question-header">
-          <h2 className="question-title">{questions[1]?.Q_Title}</h2>
-          <span>       <p>{isSolved3 ? "solved!" : "not solved."}</p> </span>
+          <h2 className="question-title"><span style={{color:"orange"}}>3. </span> {questions[1]?.Q_Title}</h2>
+          <span className={isSolved3 ? "solved" : "unsolved"}>
+            {isSolved3 ? "Solved!" : "Not solved"}
+          </span>
           </div>
-          <p>{questions[1]?.Q_Des}</p>
+          <p className="para1">{questions[1]?.Q_Des}</p>
           <img
             src={questions[1]?.Q_Img}
             alt="Question 2"
@@ -217,11 +223,14 @@ function MultipleQuestions() {
       {/* Question 4 */}
       <div className="question-box">
         <div className="question-content">
+       
         <div className="question-header">
-          <h2 className="question-title">{questions[2]?.Q_Title}</h2>
-          <span>       <p>{isSolved4 ? "solved!" : "not solved."}</p> </span>
+          <h2 className="question-title"><span style={{color:"orange"}}>4.</span> {questions[2]?.Q_Title}</h2>
+          <span className={isSolved4 ? "solved" : "unsolved"}>
+            {isSolved4 ? "Solved!" : "Not solved"}
+          </span>
           </div>
-          <p>{questions[2]?.Q_Des}</p>
+          <p className="para1">{questions[2]?.Q_Des}</p>
           <img
             src={questions[2]?.Q_Img}
             alt="Question 3"
