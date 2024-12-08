@@ -40,7 +40,7 @@ function MultipleQuestions() {
       setQuestions(fetchedQuestions);
     } catch (err) {
       console.error("Error fetching questions:", err);
-      setError("Failed to load questions. Please try again.");
+      // setError("Failed to load questions. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -147,7 +147,7 @@ function MultipleQuestions() {
         <div className="question-content">
       
         <div className="question-header">
-          <h2 className="question-title"><span style={{color:"orange"}}>2.</span> {questions[0]?.Q_Title}</h2>
+        <div style={{margin:"auto"}}>    <h2 className="question-title"><span style={{color:"orange"}}>2.</span> {questions[0]?.Q_Title}</h2> </div>
           <span className={isSolved2 ? "solved" : "unsolved"}>
             {isSolved2 ? "Solved!" : "Not solved"}
           </span>
@@ -186,7 +186,7 @@ function MultipleQuestions() {
         <div className="question-content">
         
         <div className="question-header">
-          <h2 className="question-title"><span style={{color:"orange"}}>3. </span> {questions[1]?.Q_Title}</h2>
+        <div style={{margin:"auto"}}>   <h2 className="question-title"><span style={{color:"orange"}}>3. </span> {questions[1]?.Q_Title}</h2> </div>
           <span className={isSolved3 ? "solved" : "unsolved"}>
             {isSolved3 ? "Solved!" : "Not solved"}
           </span>
@@ -225,7 +225,7 @@ function MultipleQuestions() {
         <div className="question-content">
        
         <div className="question-header">
-          <h2 className="question-title"><span style={{color:"orange"}}>4.</span> {questions[2]?.Q_Title}</h2>
+        <div style={{margin:"auto"}}>   <h2 className="question-title"><span style={{color:"orange"}}>4.</span> {questions[2]?.Q_Title}</h2>     </div>
           <span className={isSolved4 ? "solved" : "unsolved"}>
             {isSolved4 ? "Solved!" : "Not solved"}
           </span>
@@ -260,6 +260,8 @@ function MultipleQuestions() {
       </div>
 
       {/* Navigation buttons */}
+         {/* Error message */}
+         {error && <p className="feedback incorrect">{error}</p>}
       <div className="navigation-container">
         <button onClick={handlePrevious} className="navigation-button">
           Previous
@@ -269,8 +271,7 @@ function MultipleQuestions() {
         </button>
       </div>
 
-      {/* Error message */}
-      {error && <p className="feedback incorrect">{error}</p>}
+   
     </div>
   );
 }

@@ -41,7 +41,7 @@ function LastQuestion() {
     }
   };
 
-  const handleVerify = () => {
+  const handleVerify =  () => {
     if (!selectedOption) {
       setShowError("Please enter an answer");
       return;
@@ -76,6 +76,7 @@ function LastQuestion() {
         setShowError("There was an error. Please try again.");
         console.error("Error checking answer:", err);
       });
+      
   };
 
   const LoadUser = async () => {
@@ -101,13 +102,18 @@ function LastQuestion() {
     LoadUser();
   }, [isLoading, isAuthenticated, user]);
 
-  const handleSubmit = () => {
-    if (!isVerified) {
-      setShowError("Please verify your answer first.");
-      return;
-    }
+  const handleSubmit = async() => {
+   await LoadUser();
 
+   if(isSolved5)
+   {
     setShowSuccess(true);
+   }
+   else{
+
+   }
+
+   
   };
 
   const handlePrevious = () => {
@@ -122,7 +128,7 @@ function LastQuestion() {
         <>
           <div className="question-box">
             <div className="question-header">
-              <h1 className="question-title"><span style={{color:"orange"}}>5.</span>{question.Q_Title}</h1>
+            <div style={{margin:"auto"}}>   <h1 className="question-title"><span style={{color:"orange"}}>5.</span>{question.Q_Title}</h1></div>
               <span className={isSolved5 ? "solved" : "unsolved"}>
                 {isSolved5 ? "Solved!" : "Unsolved"}
               </span>
@@ -149,7 +155,7 @@ function LastQuestion() {
             <button onClick={handlePrevious} className="previous-button">
               Previous
             </button>
-            <button onClick={handleSubmit} className="submit-button" disabled={!isSolved5}>
+            <button onClick={handleSubmit} className="submit-button" >
               Submit
             </button>
           </div>

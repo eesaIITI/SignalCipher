@@ -65,3 +65,81 @@
   }
 }
 
+/* Popup Overlay */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Popup Content */
+.popup-content {
+  background: white;
+  padding: 20px 30px;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+}
+
+/* Popup Header */
+.popup-header {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #023731;
+}
+
+/* Popup Rules List */
+.popup-rules {
+  list-style: disc;
+  margin: 10px 0;
+  padding-left: 20px;
+  text-align: left;
+  color: #37474f;
+}
+
+/* Popup Actions */
+.popup-actions {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+/* Buttons */
+.popup-cancel {
+  background-color: #e17223;
+  color: white;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  
+}
+
+.popup-cancel:hover {
+  background-color: #d32f2f;
+}
+
+.popup-proceed {
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.popup-proceed:hover {
+  background-color: #3a7bc8;
+}

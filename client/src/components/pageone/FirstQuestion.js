@@ -126,7 +126,7 @@ function FirstQuestion() {
     <div className="question-container">
       <div className="question-box">
         <div className="question-header">
-          <h1 className="question-title"><span style={{color:"orange"}}>1. </span>{question.Q_Title}</h1>
+        <div style={{margin:"auto"}}><h1 className="question-title"><span style={{color:"orange"}}>1. </span>{question.Q_Title}</h1> </div>  
           <span className={isSolved ? "solved" : "unsolved"}>
             {isSolved ? "Solved!" : "Not solved"}
           </span>
