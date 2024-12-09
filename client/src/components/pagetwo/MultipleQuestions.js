@@ -153,12 +153,60 @@ function MultipleQuestions() {
           </span>
           </div>
           <p className="para1">{questions[0]?.Q_Des}</p>
-          <img
+          {/* <img
             src={questions[0]?.Q_Img}
             alt="Question 1"
             className="question-image"
-          />
+          /> */}
+          
         </div>
+
+        <div className="flex flex-row bg-green-400">
+     <div className="w-3/5">
+    <p>2a ka description</p>
+     </div>
+
+         <div className="w-2/5 flex justify-center items-center">
+      <img
+       src={questions[0]?.Q_Img}
+      alt="Question 2a"
+      className="question-image"
+     />
+        </div>
+           </div>
+           <div className="flex flex-row bg-green-400">
+     <div className="w-3/5">
+    <p>2b ka description</p>
+     </div>
+
+         <div className="w-2/5 flex justify-center items-center">
+      <img
+       src={questions[0]?.Q_Img}
+      alt="Question 2a"
+      className="question-image"
+     />
+        </div>
+           </div>
+           <div className="flex flex-row bg-green-400">
+     <div className="w-3/5">
+    <p>2c ka description</p>
+     </div>
+
+         <div className="w-2/5 flex justify-center items-center">
+      <img
+       src={questions[0]?.Q_Img}
+      alt="Question 2a"
+      className="question-image"
+     />
+        </div>
+           </div>
+
+
+
+
+
+
+
         <div className="input-verify-container">
           <input
             type="text"
@@ -181,6 +229,9 @@ function MultipleQuestions() {
         )}
       </div>
 
+
+
+
       {/* Question 3 */}
       <div className="question-box">
         <div className="question-content">
@@ -196,8 +247,13 @@ function MultipleQuestions() {
             src={questions[1]?.Q_Img}
             alt="Question 2"
             className="question-image"
-          />
+           />
         </div>
+   
+      
+
+
+
         <div className="input-verify-container">
           <input
             type="text"
@@ -231,12 +287,45 @@ function MultipleQuestions() {
           </span>
           </div>
           <p className="para1">{questions[2]?.Q_Des}</p>
-          <img
+          
+        </div>
+
+        <div className="flex flex-row">
+           <div className="w-3/5">
+              4a ka description
+           </div>
+           <div className="w-2/5">
+           <img
             src={questions[2]?.Q_Img}
             alt="Question 3"
             className="question-image"
           />
-        </div>
+           </div>
+      </div>
+      <div className="flex flex-row">
+           <div className="w-3/5">
+              4b ka description
+           </div>
+           <div className="w-2/5">
+           <img
+            src={questions[2]?.Q_Img}
+            alt="Question 3"
+            className="question-image"
+          />
+           </div>
+      </div>
+      <div className="flex flex-row">
+           <div className="w-3/5">
+              4c ka description
+           </div>
+           <div className="w-2/5">
+           <img
+            src={questions[2]?.Q_Img}
+            alt="Question 3"
+            className="question-image"
+          />
+           </div>
+      </div>
         <div className="input-verify-container">
           <input
             type="text"
