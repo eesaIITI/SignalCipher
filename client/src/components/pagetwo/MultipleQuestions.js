@@ -32,7 +32,7 @@ function MultipleQuestions() {
 
       for (let i = 0; i < questionNumbers.length; i++) {
         const response = await axios.get("http://localhost:5000/Fetch_Question", {
-          params: { Q_Num: questionNumbers[i],userEmail:user.email },
+          params: { Q_Num: questionNumbers[i], userEmail: user.email },
         });
         fetchedQuestions.push(response.data);
       }
@@ -94,19 +94,19 @@ function MultipleQuestions() {
         const response = await axios.get(`http://localhost:5000/getUserInfo`, {
           params: { email: user.email },  // Email is sent as a query parameter
         });
-  
-        setUserInfo(response.data); 
-         setIsSolved2( response.data.Qns_Solved.includes(2));
-         setIsSolved3( response.data.Qns_Solved.includes(3));
-         setIsSolved4( response.data.Qns_Solved.includes(4));
-        
+
+        setUserInfo(response.data);
+        setIsSolved2(response.data.Qns_Solved.includes(2));
+        setIsSolved3(response.data.Qns_Solved.includes(3));
+        setIsSolved4(response.data.Qns_Solved.includes(4));
+
       } catch (err) {
         console.error('Error loading user info:', err);
       }
     }
 
   };
-  
+
 
 
   // Fetch question when user is ready
@@ -145,69 +145,122 @@ function MultipleQuestions() {
       {/* Question 2 */}
       <div className="question-box">
         <div className="question-content">
-      
-        <div className="question-header">
-        <div style={{margin:"auto"}}>    <h2 className="question-title"><span style={{color:"orange"}}>2.</span> {questions[0]?.Q_Title}</h2> </div>
-          <span className={isSolved2 ? "solved" : "unsolved"}>
-            {isSolved2 ? "Solved!" : "Not solved"}
-          </span>
+
+          <div className="question-header">
+            <div style={{ margin: "auto" }}>    <h2 className="question-title"><span style={{ color: "orange" }}>2.</span> {questions[0]?.Q_Title}</h2> </div>
+            <span className={isSolved2 ? "solved" : "unsolved"}>
+              {isSolved2 ? "Solved!" : "Not solved"}
+            </span>
           </div>
-          <p className="para1">{questions[0]?.Q_Des}</p>
+          <p className="para1">{questions[0]?.Q_Des}
+          <div style={{
+          display: 'flex', width: '100%', justifyContent:"center", marginBottom: '20px' ,marginTop:'30px',gap:'40px'
+          
+        }}>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <p style={{ margin: 0, fontSize: '1rem' }}>2a ka description hvvvhjvhvhv hjvhjvhjvjhvh jvhjvhghcgcfg cxgcgh vhgvhvhv cghhjvvv  vvvvvvvvv vvvvvvvvv vvvvvvvv vvvvvvvv vvvvvvv vvvvvvv  vvvvvvv vvvvvvv vvvvvvv vvvvvvv
+              vvvv vvv vvvvvv vvvvvvvvv vvvvvv vvvvvvvvvv vvvvvvvvvv vvvvvvv vvvvvvvv
+            </p>
+          </div>
+
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <img
+              src={questions[0]?.Q_Img}
+              alt="Question 2a"
+              style={{ maxWidth: '38%', height: 'auto', display: 'block' }}
+            />
+          </div>
+        </div>
+
+        <div style={{
+          display: 'flex', width: '100%', justifyContent:"center", marginBottom: '20px' ,marginTop:'30px',gap:'40px'
+          
+        }}>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <p style={{ margin: 0, fontSize: '1rem' }}>2a ka description hvvvhjvhvhv hjvhjvhjvjhvh jvhjvhghcgcfg cxgcgh vhgvhvhv cghhjvvv  vvvvvvvvv vvvvvvvvv vvvvvvvv vvvvvvvv vvvvvvv vvvvvvv  vvvvvvv vvvvvvv vvvvvvv vvvvvvv
+              vvvv vvv vvvvvv vvvvvvvvv vvvvvv vvvvvvvvvv vvvvvvvvvv vvvvvvv vvvvvvvv
+            </p>
+          </div>
+
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <img
+              src={questions[0]?.Q_Img}
+              alt="Question 2a"
+              style={{ maxWidth: '38%', height: 'auto', display: 'block' }}
+            />
+          </div>
+        </div>
+
+        <div style={{
+          display: 'flex', width: '100%', justifyContent:"center", marginBottom: '20px' ,marginTop:'30px',gap:'40px'
+          
+        }}>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <p style={{ margin: 0, fontSize: '1rem' }}>2a ka description hvvvhjvhvhv hjvhjvhjvjhvh jvhjvhghcgcfg cxgcgh vhgvhvhv cghhjvvv  vvvvvvvvv vvvvvvvvv vvvvvvvv vvvvvvvv vvvvvvv vvvvvvv  vvvvvvv vvvvvvv vvvvvvv vvvvvvv
+              vvvv vvv vvvvvv vvvvvvvvv vvvvvv vvvvvvvvvv vvvvvvvvvv vvvvvvv vvvvvvvv
+            </p>
+          </div>
+
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <img
+              src={questions[0]?.Q_Img}
+              alt="Question 2a"
+              style={{ maxWidth: '38%', height: 'auto', display: 'block' }}
+            />
+          </div>
+        </div>
+
+        <div style={{
+          display: 'flex', width: '100%', justifyContent:"center", marginBottom: '20px' ,marginTop:'30px',gap:'40px'
+          
+        }}>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <p style={{ margin: 0, fontSize: '1rem' }}>2a ka description hvvvhjvhvhv hjvhjvhjvjhvh jvhjvhghcgcfg cxgcgh vhgvhvhv cghhjvvv  vvvvvvvvv vvvvvvvvv vvvvvvvv vvvvvvvv vvvvvvv vvvvvvv  vvvvvvv vvvvvvv vvvvvvv vvvvvvv
+              vvvv vvv vvvvvv vvvvvvvvv vvvvvv vvvvvvvvvv vvvvvvvvvv vvvvvvv vvvvvvvv
+            </p>
+          </div>
+
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <img
+              src={questions[0]?.Q_Img}
+              alt="Question 2a"
+              style={{ maxWidth: '38%', height: 'auto', display: 'block' }}
+            />
+          </div>
+        </div>
+
+        <div style={{
+          display: 'flex', width: '100%', justifyContent:"center", marginBottom: '20px' ,marginTop:'30px',gap:'40px'
+          
+        }}>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <p style={{ margin: 0, fontSize: '1rem' }}>2a ka description hvvvhjvhvhv hjvhjvhjvjhvh jvhjvhghcgcfg cxgcgh vhgvhvhv cghhjvvv  vvvvvvvvv vvvvvvvvv vvvvvvvv vvvvvvvv vvvvvvv vvvvvvv  vvvvvvv vvvvvvv vvvvvvv vvvvvvv
+              vvvv vvv vvvvvv vvvvvvvvv vvvvvv vvvvvvvvvv vvvvvvvvvv vvvvvvv vvvvvvvv
+            </p>
+          </div>
+
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <img
+              src={questions[0]?.Q_Img}
+              alt="Question 2a"
+              style={{ maxWidth: '38%', height: 'auto', display: 'block' }}
+            />
+          </div>
+        </div>
+
+          </p>
           {/* <img
             src={questions[0]?.Q_Img}
             alt="Question 1"
             className="question-image"
           /> */}
           
+
         </div>
 
-        <div className="flex flex-row bg-green-400">
-     <div className="w-3/5">
-    <p>2a ka description</p>
-     </div>
-
-         <div className="w-2/5 flex justify-center items-center">
-      <img
-       src={questions[0]?.Q_Img}
-      alt="Question 2a"
-      className="question-image"
-     />
-        </div>
-           </div>
-           <div className="flex flex-row bg-green-400">
-     <div className="w-3/5">
-    <p>2b ka description</p>
-     </div>
-
-         <div className="w-2/5 flex justify-center items-center">
-      <img
-       src={questions[0]?.Q_Img}
-      alt="Question 2a"
-      className="question-image"
-     />
-        </div>
-           </div>
-           <div className="flex flex-row bg-green-400">
-     <div className="w-3/5">
-    <p>2c ka description</p>
-     </div>
-
-         <div className="w-2/5 flex justify-center items-center">
-      <img
-       src={questions[0]?.Q_Img}
-      alt="Question 2a"
-      className="question-image"
-     />
-        </div>
-           </div>
 
 
-
-
-
-
-
-        <div className="input-verify-container">
+         <div className="input-verify-container">
           <input
             type="text"
             placeholder="Your answer"
@@ -235,22 +288,22 @@ function MultipleQuestions() {
       {/* Question 3 */}
       <div className="question-box">
         <div className="question-content">
-        
-        <div className="question-header">
-        <div style={{margin:"auto"}}>   <h2 className="question-title"><span style={{color:"orange"}}>3. </span> {questions[1]?.Q_Title}</h2> </div>
-          <span className={isSolved3 ? "solved" : "unsolved"}>
-            {isSolved3 ? "Solved!" : "Not solved"}
-          </span>
+
+          <div className="question-header">
+            <div style={{ margin: "auto" }}>   <h2 className="question-title"><span style={{ color: "orange" }}>3. </span> {questions[1]?.Q_Title}</h2> </div>
+            <span className={isSolved3 ? "solved" : "unsolved"}>
+              {isSolved3 ? "Solved!" : "Not solved"}
+            </span>
           </div>
           <p className="para1">{questions[1]?.Q_Des}</p>
           <img
             src={questions[1]?.Q_Img}
             alt="Question 2"
             className="question-image"
-           />
+          />
         </div>
-   
-      
+
+
 
 
 
@@ -279,53 +332,61 @@ function MultipleQuestions() {
       {/* Question 4 */}
       <div className="question-box">
         <div className="question-content">
-       
-        <div className="question-header">
-        <div style={{margin:"auto"}}>   <h2 className="question-title"><span style={{color:"orange"}}>4.</span> {questions[2]?.Q_Title}</h2>     </div>
-          <span className={isSolved4 ? "solved" : "unsolved"}>
-            {isSolved4 ? "Solved!" : "Not solved"}
-          </span>
+
+          <div className="question-header">
+            <div style={{ margin: "auto" }}>   <h2 className="question-title"><span style={{ color: "orange" }}>4.</span> {questions[2]?.Q_Title}</h2>     </div>
+            <span className={isSolved4 ? "solved" : "unsolved"}>
+              {isSolved4 ? "Solved!" : "Not solved"}
+            </span>
           </div>
-          <p className="para1">{questions[2]?.Q_Des}</p>
-          
+          <p className="para1">{questions[2]?.Q_Des}
+
+
+          <div style={{ display: 'flex', width: '100%', gap: '40px', justifyContent:"center",marginBottom: '20px',marginTop:'30px' }}>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <p style={{ margin: 0, fontSize: '1rem' }}>4a ka description Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse.
+            </p>
+          </div>
+
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <img
+              src={questions[2]?.Q_Img}
+              alt="Question 4a"
+              style={{ maxWidth: '38%', height: 'auto', display: 'block' }}
+            />
+          </div>
+        </div>
+        <div style={{ display: 'flex', width: '100%', justifyContent:"center", gap: '40px', marginBottom: '20px' }}>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <p style={{ margin: 0, fontSize: '1rem' }}>4b ka description</p>
+          </div>
+
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <img
+              src={questions[2]?.Q_Img}
+              alt="Question 4b"
+              style={{ maxWidth: '38%', height: 'auto', display: 'block' }}
+            />
+          </div>
+        </div>
+        <div style={{ display: 'flex', width: '100%', justifyContent:"center", gap: '40px', marginBottom: '20px' }}>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <p style={{ margin: 0, fontSize: '1rem' }}>4c ka description</p>
+          </div>
+
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <img
+              src={questions[2]?.Q_Img}
+              alt="Question 4c"
+              style={{ maxWidth: '38%', height: 'auto', display: 'block' }}
+            />
+          </div>
+        </div>
+          </p>
+
         </div>
 
-        <div className="flex flex-row">
-           <div className="w-3/5">
-              4a ka description
-           </div>
-           <div className="w-2/5">
-           <img
-            src={questions[2]?.Q_Img}
-            alt="Question 3"
-            className="question-image"
-          />
-           </div>
-      </div>
-      <div className="flex flex-row">
-           <div className="w-3/5">
-              4b ka description
-           </div>
-           <div className="w-2/5">
-           <img
-            src={questions[2]?.Q_Img}
-            alt="Question 3"
-            className="question-image"
-          />
-           </div>
-      </div>
-      <div className="flex flex-row">
-           <div className="w-3/5">
-              4c ka description
-           </div>
-           <div className="w-2/5">
-           <img
-            src={questions[2]?.Q_Img}
-            alt="Question 3"
-            className="question-image"
-          />
-           </div>
-      </div>
+       
         <div className="input-verify-container">
           <input
             type="text"
@@ -349,8 +410,8 @@ function MultipleQuestions() {
       </div>
 
       {/* Navigation buttons */}
-         {/* Error message */}
-         {error && <p className="feedback incorrect">{error}</p>}
+      {/* Error message */}
+      {error && <p className="feedback incorrect">{error}</p>}
       <div className="navigation-container">
         <button onClick={handlePrevious} className="navigation-button">
           Previous
@@ -360,7 +421,7 @@ function MultipleQuestions() {
         </button>
       </div>
 
-   
+
     </div>
   );
 }
