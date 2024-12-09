@@ -69,10 +69,23 @@ const Authentication = () => {
           <div className="popup-content">
             <h2 className="popup-header">Rules</h2>
             <ul className="popup-rules">
-              <li>Rule 1: No cheating during the quiz.</li>
-              <li>Rule 2: Each question has a time limit.</li>
-              <li>Rule 3: Complete the quiz in one session.</li>
-              <li>Rule 4: Your progress will not be saved.</li>
+              <li>Rule 1:The competition is open to all registered participants. To participate, kindly complete the registration by filling out the provided Google form: [Google form link]
+              </li>
+              <li>Rule 2: Participants may enter the competition either individually or as part of a team, with team sizes ranging from 1 to 2 members.
+              </li>
+              <li>Rule 3:All flags in the competition must follow the format: eesa{"{flag}"}
+              </li>
+              <li>Rule 4: Sharing solutions, flags, or hints with other participants or teams is strictly prohibited.
+              </li>
+              <li>Rule 5:Participants are free to use internet sources or any AI tool during the competition.
+              </li>
+              <li>Rule 6:The competition will run from [timeline]. Ensure that all submissions are made within this time frame.
+              </li>
+              <li>Rule 7:Participants are required to solve the questions at the earliest. Teams that submit solutions earlier will receive higher rankings.
+              </li>
+              <li>Rule 8:In case of any queries, participants are encouraged to reach out through EESA’s official Instagram page or via Gmail.
+
+              </li>
             </ul>
             <div className="popup-actions">
               <button
