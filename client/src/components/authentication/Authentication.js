@@ -9,7 +9,7 @@ const Authentication = () => {
   const navigate = useNavigate();
   const [showRules, setShowRules] = useState(false);
   
-  const port  = "https://signal-cipher-l7jty86nf-eesa-webteams-projects.vercel.app";
+  const port  = "https://signal-cipher.vercel.app";
 
   const storeUserInfo = async () => {
     try {
