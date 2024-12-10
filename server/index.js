@@ -11,7 +11,7 @@ const mongoURI = process.env.MONGO_URI;
 const port = process.env.PORT || 5000;
 
 app.use(cors({
-  origin: 'http://localhost:3000', // Replace with your frontend's URL
+  origin: 'https://signal-cipher-f.vercel.app/', // Replace with your frontend's URL
   methods: ['GET', 'POST'],
   credentials: true,
 }));
@@ -92,7 +92,7 @@ mongoose.connect(mongoURI, {
       }
   
       // Send the question to the frontend
-      console.log(question);
+    
       res.send(question);
   
     } catch (error) {
