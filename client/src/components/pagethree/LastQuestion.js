@@ -41,7 +41,7 @@ function LastQuestion() {
     }
   };
 
-  const handleVerify =  () => {
+  const handleVerify =  async () => {
     if (!selectedOption) {
       setShowError("Please enter an answer");
       return;
@@ -51,13 +51,18 @@ function LastQuestion() {
       setShowError("User authentication failed. Please log in.");
       return;
     }
+      //covertinh to lower case , removing spaces
+       let tutu = selectedOption;
+        tutu = tutu.replace(/\s+/g, '').toLowerCase();
+
+        setSelectedOption(tutu);
 
     fetch("http://localhost:5000/validateAnswer", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         Qno: '5',
-        submittedAns: selectedOption,
+        submittedAns: tutu,
         userEmail: user.email,
       }),
     })
@@ -134,12 +139,12 @@ function LastQuestion() {
               </span>
             </div>
             <p className="para1">{question.Q_Des}</p>
-            <img src={question.Q_Img} alt="Question" className="question-image" />
+    
             <div className="input-verify-container">
               <input
                 type="text"
                 placeholder="Your answer"
-                value={selectedOption}
+                
                 onChange={(e) => setSelectedOption(e.target.value)}
                 className="answer-input"
                 aria-label="Your answer"
@@ -162,9 +167,17 @@ function LastQuestion() {
         </>
       ) : (
         <div className="success-message">
-          <h1>🎉 Congratulations! 🎉</h1>
-          <p>You have successfully qualified all rounds. Well done!</p>
-        </div>
+        <h1>🎉 You have successfully completed SignalCipher—well done! 🎉</h1>
+        <p>
+          Thank you for participating and showcasing your skills. EESA wishes you a
+          <span className="highlight"> Happy New Year! </span>
+        </p>
+        <p>
+          Stay tuned for further updates and information about prizes.   We will be back soon with more exciting news!😉
+        </p>
+        <p>Until next time, keep exploring and innovating...</p>
+      </div>
+      
       )}
     </div>
   );

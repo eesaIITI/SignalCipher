@@ -157,17 +157,16 @@ function MultipleQuestions() {
           display: 'flex', width: '100%', justifyContent:"center", marginBottom: '20px' ,marginTop:'30px',gap:'40px'
           
         }}>
-          <div style={{ flex: 1, minWidth: 0 }}>
-            <p style={{ margin: 0, fontSize: '1rem' }}>2a ka description hvvvhjvhvhv hjvhjvhjvjhvh jvhjvhghcgcfg cxgcgh vhgvhvhv cghhjvvv  vvvvvvvvv vvvvvvvvv vvvvvvvv vvvvvvvv vvvvvvv vvvvvvv  vvvvvvv vvvvvvv vvvvvvv vvvvvvv
-              vvvv vvv vvvvvv vvvvvvvvv vvvvvv vvvvvvvvvv vvvvvvvvvv vvvvvvv vvvvvvvv
+          <div style={{ flex: 1, minWidth: '70%', }}>
+            <p style={{ margin: 0, fontSize: '1rem' }}> {questions[0]?.A_Des}
             </p>
           </div>
 
           <div style={{ flex: 1, minWidth: 0 }}>
             <img
-              src={questions[0]?.Q_Img}
+              src={questions[0]?.A_Img}
               alt="Question 2a"
-              style={{ maxWidth: '38%', height: 'auto', display: 'block' }}
+              style={{ maxWidth: '100%', height: 'auto', display: 'block' }}
             />
           </div>
         </div>
@@ -176,17 +175,16 @@ function MultipleQuestions() {
           display: 'flex', width: '100%', justifyContent:"center", marginBottom: '20px' ,marginTop:'30px',gap:'40px'
           
         }}>
-          <div style={{ flex: 1, minWidth: 0 }}>
-            <p style={{ margin: 0, fontSize: '1rem' }}>2a ka description hvvvhjvhvhv hjvhjvhjvjhvh jvhjvhghcgcfg cxgcgh vhgvhvhv cghhjvvv  vvvvvvvvv vvvvvvvvv vvvvvvvv vvvvvvvv vvvvvvv vvvvvvv  vvvvvvv vvvvvvv vvvvvvv vvvvvvv
-              vvvv vvv vvvvvv vvvvvvvvv vvvvvv vvvvvvvvvv vvvvvvvvvv vvvvvvv vvvvvvvv
+          <div style={{ flex: 1, minWidth: '70%' }}>
+            <p style={{ margin: 0, fontSize: '1rem' }}> {questions[0]?.B_Des}
             </p>
           </div>
 
           <div style={{ flex: 1, minWidth: 0 }}>
             <img
-              src={questions[0]?.Q_Img}
+              src={questions[0]?.B_Img}
               alt="Question 2a"
-              style={{ maxWidth: '38%', height: 'auto', display: 'block' }}
+              style={{ maxWidth: '100%', height: 'auto', display: 'block' }}
             />
           </div>
         </div>
@@ -195,17 +193,16 @@ function MultipleQuestions() {
           display: 'flex', width: '100%', justifyContent:"center", marginBottom: '20px' ,marginTop:'30px',gap:'40px'
           
         }}>
-          <div style={{ flex: 1, minWidth: 0 }}>
-            <p style={{ margin: 0, fontSize: '1rem' }}>2a ka description hvvvhjvhvhv hjvhjvhjvjhvh jvhjvhghcgcfg cxgcgh vhgvhvhv cghhjvvv  vvvvvvvvv vvvvvvvvv vvvvvvvv vvvvvvvv vvvvvvv vvvvvvv  vvvvvvv vvvvvvv vvvvvvv vvvvvvv
-              vvvv vvv vvvvvv vvvvvvvvv vvvvvv vvvvvvvvvv vvvvvvvvvv vvvvvvv vvvvvvvv
+          <div style={{ flex: 1,minWidth: '70%' }}>
+            <p style={{ margin: 0, fontSize: '1rem' }}> {questions[0]?.C_Des}
             </p>
           </div>
 
           <div style={{ flex: 1, minWidth: 0 }}>
             <img
-              src={questions[0]?.Q_Img}
+              src={questions[0]?.C_Img}
               alt="Question 2a"
-              style={{ maxWidth: '38%', height: 'auto', display: 'block' }}
+              style={{ maxWidth: '100%', height: 'auto', display: 'block' }}
             />
           </div>
         </div>
@@ -214,17 +211,16 @@ function MultipleQuestions() {
           display: 'flex', width: '100%', justifyContent:"center", marginBottom: '20px' ,marginTop:'30px',gap:'40px'
           
         }}>
-          <div style={{ flex: 1, minWidth: 0 }}>
-            <p style={{ margin: 0, fontSize: '1rem' }}>2a ka description hvvvhjvhvhv hjvhjvhjvjhvh jvhjvhghcgcfg cxgcgh vhgvhvhv cghhjvvv  vvvvvvvvv vvvvvvvvv vvvvvvvv vvvvvvvv vvvvvvv vvvvvvv  vvvvvvv vvvvvvv vvvvvvv vvvvvvv
-              vvvv vvv vvvvvv vvvvvvvvv vvvvvv vvvvvvvvvv vvvvvvvvvv vvvvvvv vvvvvvvv
+          <div style={{ flex: 1, minWidth: '70%' }}>
+            <p style={{ margin: 0, fontSize: '1rem' }}> {questions[0]?.D_Des}
             </p>
           </div>
 
           <div style={{ flex: 1, minWidth: 0 }}>
             <img
-              src={questions[0]?.Q_Img}
+              src={questions[0]?.D_Img}
               alt="Question 2a"
-              style={{ maxWidth: '38%', height: 'auto', display: 'block' }}
+              style={{ maxWidth: '100%', height: 'auto', display: 'block' }}
             />
           </div>
         </div>
@@ -233,32 +229,27 @@ function MultipleQuestions() {
           display: 'flex', width: '100%', justifyContent:"center", marginBottom: '20px' ,marginTop:'30px',gap:'40px'
           
         }}>
-          <div style={{ flex: 1, minWidth: 0 }}>
-            <p style={{ margin: 0, fontSize: '1rem' }}>2a ka description hvvvhjvhvhv hjvhjvhjvjhvh jvhjvhghcgcfg cxgcgh vhgvhvhv cghhjvvv  vvvvvvvvv vvvvvvvvv vvvvvvvv vvvvvvvv vvvvvvv vvvvvvv  vvvvvvv vvvvvvv vvvvvvv vvvvvvv
-              vvvv vvv vvvvvv vvvvvvvvv vvvvvv vvvvvvvvvv vvvvvvvvvv vvvvvvv vvvvvvvv
+          <div style={{ flex: 1, minWidth: '70%' }}>
+            <p style={{ margin: 0, fontSize: '1rem' }}> {questions[0]?.E_Des}
             </p>
           </div>
 
           <div style={{ flex: 1, minWidth: 0 }}>
             <img
-              src={questions[0]?.Q_Img}
+              src={questions[0]?.E_Img}
               alt="Question 2a"
-              style={{ maxWidth: '38%', height: 'auto', display: 'block' }}
+              style={{ maxWidth: '100%', height: 'auto', display: 'block' }}
             />
           </div>
         </div>
 
           </p>
-          {/* <img
-            src={questions[0]?.Q_Img}
-            alt="Question 1"
-            className="question-image"
-          /> */}
+      
           
 
         </div>
 
-
+   
 
          <div className="input-verify-container">
           <input
@@ -296,14 +287,44 @@ function MultipleQuestions() {
             </span>
           </div>
           <p className="para1">{questions[1]?.Q_Des}</p>
-          <img
-            src={questions[1]?.Q_Img}
-            alt="Question 2"
-            className="question-image"
-          />
+         
         </div>
 
-
+{/* // Two buttons side by side */}
+<div style={{ display: "flex", justifyContent: "center", gap: "50px", marginTop: "10px" }}>
+  <a href="https://drive.google.com/file/d/1bH58YIwupqK4rMcM0JThypm14_4RbVJ5/view?usp=sharing" target="Blank"
+    
+    style={{
+      backgroundColor: "#3b82f6", // Blue background
+      color: "#fff",             // White text
+      padding: "8px 16px",       // Padding
+      borderRadius: "4px",       // Rounded corners
+      border: "none",            // No border
+      cursor: "pointer",         // Pointer cursor
+      fontSize: "16px",          // Font size
+    }}
+    onMouseOver={(e) => (e.target.style.backgroundColor = "#2563eb")} // Hover effect
+    onMouseOut={(e) => (e.target.style.backgroundColor = "#3b82f6")}
+  >
+    Audio file
+  </a>
+  <a     href="https://drive.google.com/file/d/1pUEF6lFwlNMEUc6gzwCWkeLN2z0iNw7d/view?usp=sharing"   target="Blank" 
+    
+    style={{
+      backgroundColor: "#22c55e", // Green background
+      color: "#fff",              // White text
+      padding: "8px 16px",        // Padding
+      borderRadius: "4px",        // Rounded corners
+      border: "none",             // No border
+      cursor: "pointer",          // Pointer cursor
+      fontSize: "16px",           // Font size
+    }}
+    onMouseOver={(e) => (e.target.style.backgroundColor = "#16a34a")} // Hover effect
+    onMouseOut={(e) => (e.target.style.backgroundColor = "#22c55e")}
+  >
+    Python file
+  </a>
+</div>
 
 
 
@@ -343,43 +364,39 @@ function MultipleQuestions() {
 
 
           <div style={{ display: 'flex', width: '100%', gap: '40px', justifyContent:"center",marginBottom: '20px',marginTop:'30px' }}>
-          <div style={{ flex: 1, minWidth: 0 }}>
-            <p style={{ margin: 0, fontSize: '1rem' }}>4a ka description Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse.
+          <div style={{ flex: 1, minWidth: '70%' }}>
+            <p style={{ margin: 0, fontSize: '1rem' }}>{questions[2]?.A_Des}
             </p>
           </div>
 
           <div style={{ flex: 1, minWidth: 0 }}>
             <img
-              src={questions[2]?.Q_Img}
+              src={questions[2]?.A_Img}
               alt="Question 4a"
-              style={{ maxWidth: '38%', height: 'auto', display: 'block' }}
+              style={{ maxWidth: '120%', height: 'auto', display: 'block' }}
             />
           </div>
         </div>
         <div style={{ display: 'flex', width: '100%', justifyContent:"center", gap: '40px', marginBottom: '20px' }}>
-          <div style={{ flex: 1, minWidth: 0 }}>
-            <p style={{ margin: 0, fontSize: '1rem' }}>4b ka description</p>
+          <div style={{ flex: 1, minWidth: '70%' }}>
+            <p style={{ margin: 0, fontSize: '1rem' }}>{questions[2]?.B_Des}</p>
           </div>
 
           <div style={{ flex: 1, minWidth: 0 }}>
             <img
-              src={questions[2]?.Q_Img}
+              src={questions[2]?.B_Img}
               alt="Question 4b"
-              style={{ maxWidth: '38%', height: 'auto', display: 'block' }}
+              style={{ maxWidth: '120%', height: 'auto', display: 'block' }}
             />
           </div>
         </div>
         <div style={{ display: 'flex', width: '100%', justifyContent:"center", gap: '40px', marginBottom: '20px' }}>
-          <div style={{ flex: 1, minWidth: 0 }}>
-            <p style={{ margin: 0, fontSize: '1rem' }}>4c ka description</p>
+          <div style={{ flex: 1, minWidth: '70%' }}>
+            <p style={{ margin: 0, fontSize: '1rem' }}>{questions[2]?.C_Des}</p>
           </div>
 
           <div style={{ flex: 1, minWidth: 0 }}>
-            <img
-              src={questions[2]?.Q_Img}
-              alt="Question 4c"
-              style={{ maxWidth: '38%', height: 'auto', display: 'block' }}
-            />
+           
           </div>
         </div>
           </p>
