@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import "./PageTwo.css";
+const port  = "https://signal-cipher-l7jty86nf-eesa-webteams-projects.vercel.app";
 
 function MultipleQuestions() {
   const navigate = useNavigate();
@@ -31,7 +32,7 @@ function MultipleQuestions() {
       const fetchedQuestions = [];
 
       for (let i = 0; i < questionNumbers.length; i++) {
-        const response = await axios.get("http://localhost:5000/Fetch_Question", {
+        const response = await axios.get(`{port}Fetch_Question`, {
           params: { Q_Num: questionNumbers[i], userEmail: user.email },
         });
         fetchedQuestions.push(response.data);
@@ -62,7 +63,7 @@ function MultipleQuestions() {
     }
 
     try {
-      const response = await fetch("http://localhost:5000/validateAnswer", {
+      const response = await fetch(`${port}/validateAnswer`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -91,7 +92,7 @@ function MultipleQuestions() {
     if (isAuthenticated && user?.email) {
       try {
         // Sending the email as a query parameter in the GET request
-        const response = await axios.get(`http://localhost:5000/getUserInfo`, {
+        const response = await axios.get(`${port}/getUserInfo`, {
           params: { email: user.email },  // Email is sent as a query parameter
         });
 

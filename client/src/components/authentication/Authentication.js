@@ -8,10 +8,12 @@ const Authentication = () => {
   const { isAuthenticated, isLoading, user } = useAuth0();
   const navigate = useNavigate();
   const [showRules, setShowRules] = useState(false);
+  
+  const port  = "https://signal-cipher-l7jty86nf-eesa-webteams-projects.vercel.app";
 
   const storeUserInfo = async () => {
     try {
-      const response = await axios.post('http://localhost:5000/Userinfo', {
+      const response = await axios.post(`${port}/Userinfo`, {
         UserEmail: user.email,
         UserName: user.name
       });

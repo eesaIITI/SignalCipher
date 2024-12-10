@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import "./PageThree.css";
+const port  = "https://signal-cipher-l7jty86nf-eesa-webteams-projects.vercel.app";
 
 function LastQuestion() {
   const [question, setQuestion] = useState(null);
@@ -21,7 +22,7 @@ function LastQuestion() {
   const fetchQuestions = async (userEmail, Q_Num) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/Fetch_Question?userEmail=${userEmail}&Q_Num=${Q_Num}`,
+        `${port}/Fetch_Question?userEmail=${userEmail}&Q_Num=${Q_Num}`,
         {
           method: "GET",
           headers: {
@@ -57,7 +58,7 @@ function LastQuestion() {
 
         setSelectedOption(tutu);
 
-    fetch("http://localhost:5000/validateAnswer", {
+    fetch(`${port}/validateAnswer`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -87,7 +88,7 @@ function LastQuestion() {
   const LoadUser = async () => {
     if (isAuthenticated && user?.email) {
       try {
-        const response = await axios.get(`http://localhost:5000/getUserInfo`, {
+        const response = await axios.get(`${port}/getUserInfo`, {
           params: { email: user.email },
         });
   
