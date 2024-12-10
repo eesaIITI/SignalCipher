@@ -32,7 +32,7 @@ function MultipleQuestions() {
       const fetchedQuestions = [];
 
       for (let i = 0; i < questionNumbers.length; i++) {
-        const response = await axios.get(`{port}Fetch_Question`, {
+        const response = await axios.get(`{port}/Fetch_Question`, {
           params: { Q_Num: questionNumbers[i], userEmail: user.email },
         });
         fetchedQuestions.push(response.data);
