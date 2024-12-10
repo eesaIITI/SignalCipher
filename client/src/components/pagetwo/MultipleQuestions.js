@@ -49,7 +49,7 @@ function MultipleQuestions() {
 
   useEffect(() => {
     fetchQuestions();
-  }, [user,isLoading]);
+  }, []);
 
   const handleVerify = async (questionNo, answer) => {
     if (!answer) {
