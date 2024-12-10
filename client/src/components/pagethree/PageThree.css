@@ -1,0 +1,203 @@
+.question-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 120px);
+  padding: 2rem;
+  background-color: #f0f4f8;
+}
+
+.question-box {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  width: 70vw;
+  min-height: 40vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.question-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.question-title {
+  color: #4a90e2;
+  font-size: 1.8rem;
+  margin: 0;
+}
+
+.solved {
+  color: #2ecc71;
+  font-weight: bold;
+}
+
+.unsolved {
+  color: rgba(241, 241, 39, 0.906);
+  font-weight: bold;
+}
+
+.question-image {
+  max-width: 100%;
+  max-height: 200px;
+  object-fit: contain;
+  margin-bottom: 1rem;
+}
+
+.input-verify-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+  margin-top: auto;
+  margin-bottom: 1rem;
+}
+
+.answer-input {
+  flex-grow: 1;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  margin-right: 0.5rem;
+}
+
+.verify-button {
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  white-space: nowrap;
+}
+
+.submit-button, .previous-button {
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  width: 150px;
+  height: 40px;
+}
+
+.verify-button:hover, .submit-button:hover, .previous-button:hover {
+  background-color: #f39c12;
+}
+
+.verify-button:disabled, .submit-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  width: 70vw;
+  margin-top: 1rem;
+}
+
+.error-message {
+  color: red;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.correct-message {
+  color: green;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.success-message {
+  text-align: center;
+  color: #4a90e2;
+  background-color: #f9f9f9; /* Light background to highlight the message */
+  padding: 1.5rem; /* Reduced padding for a tighter layout */
+  border: 2px solid #e6e6e6; /* Subtle border for distinction */
+  border-radius: 12px; /* Rounded corners for a modern look */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adds a shadow for depth */
+  max-width: 800px; /* Increased max width */
+  margin: 2rem auto; /* Centers the container on the page */
+}
+
+.success-message h1 {
+  font-size: 1.4rem; /* Slightly smaller font for the heading */
+  margin-bottom: 3rem;
+  color: #2d76e0; /* Slightly darker blue for better contrast */
+}
+
+.success-message p {
+  font-size: 1rem; /* Reduced font size */
+  color: #1a1a1a; /* Softer text color for readability */
+  margin-bottom: 1.8rem; /* Adds consistent spacing between paragraphs */
+}
+
+.success-message p span.highlight {
+  color: #ff8c00; /* Bright orange for "Happy New Year!" */
+  font-weight: bold; /* Makes it stand out */
+}
+
+.success-message p:last-child {
+  font-style: italic; /* Adds emphasis to the last message */
+  color: #666; /* Slightly lighter text color */
+}
+
+
+
+.loading {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #4a90e2;
+}
+
+@media (max-width: 768px) {
+  .question-box {
+    width: 90vw;
+    padding: 1.5rem;
+  }
+
+  .question-title {
+    font-size: 1.5rem;
+  }
+
+  .answer-input, .verify-button, .submit-button, .previous-button {
+    font-size: 0.9rem;
+  }
+
+  .success-message h1 {
+    font-size: 1.5rem;
+  }
+
+  .success-message p {
+    font-size: 1rem;
+  }
+
+  .button-container {
+    width: 90vw;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .previous-button, .submit-button {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+}
+

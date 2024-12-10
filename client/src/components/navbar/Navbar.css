@@ -1,0 +1,50 @@
+.navbar {
+  background-color: #4a90e2;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  
+}
+
+.navbar h4 {
+  color: white;
+  margin: 0;
+  font-size: 1.5rem;
+  text-decoration: none;
+}
+.a {
+  text-decoration: none;
+}
+
+.auth-buttons button {
+  background-color: white;
+  color: #4a90e2;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+.auth-buttons button:hover {
+  background-color: #f39c12;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 1rem;
+  }
+
+  .navbar h2 {
+    font-size: 1.2rem;
+  }
+
+  .auth-buttons button {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+  }
+}

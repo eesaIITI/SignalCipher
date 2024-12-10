@@ -1,0 +1,146 @@
+.question-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  background-color: #f0f4f8;
+  min-height: calc(100vh - 120px);
+}
+
+.question-box {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  width: 70vw;
+  /* min-height: 150px; */
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.question-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.question-box h2 {
+  color: #4a90e2;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.question-image {
+  max-width: 100%;
+  max-height: 200px;
+  object-fit: contain;
+  margin-bottom: 1rem;
+}
+
+.input-verify-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+  margin-top: 1rem;
+}
+
+.answer-input {
+  flex-grow: 1;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px 0 0 4px;
+  font-size: 1rem;
+  height: 28px;
+}
+
+.verify-button, .navigation-button {
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  height: 40px;
+  width: 100px;
+}
+
+.navigation-button {
+  width: 150px;
+  margin-bottom: 0.5rem;
+  border-radius: 4px;
+}
+
+.verify-button:hover, .navigation-button:hover {
+  background-color: #f39c12;
+}
+
+.feedback {
+  margin-top: 1rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.correct {
+  color: green;
+}
+
+.incorrect {
+  color: red;
+}
+
+.navigation-container {
+  display: flex;
+  justify-content: space-between;
+  width: 70vw;
+  margin-top: 1rem;
+}
+
+.loading {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #4a90e2;
+}
+
+@media (max-width: 768px) {
+  .question-box {
+    width: 90vw;
+    padding: 1.5rem;
+  }
+
+  .navigation-container {
+    width: 90vw;
+  }
+
+  .input-verify-container {
+    flex-direction: column;
+  }
+
+  .answer-input,
+  .verify-button {
+    width: 100%;
+    border-radius: 4px;
+  }
+
+  .verify-button {
+    margin-top: 0.5rem;
+  }
+}
+.para1{
+  width: 83%;
+}
+.solved {
+  color: green;
+  font-weight: 600;
+}
+
+.unsolved {
+  color: rgba(237, 237, 9, 0.89);
+  font-weight: 600;
+}
