@@ -117,7 +117,7 @@ const Authentication = () => {
         <li style={{ marginBottom: '10px' }}>
           Rule 1: The competition is open to all registered participants. To
           participate, kindly complete the registration by filling out the
-          provided Google form: [Google form link]
+          provided Google form:  <a href="https://docs.google.com/forms/d/1LUU6kGp05fOAlpSdTG3MMdgD3HdodRTxCVrASvsIe2w/viewform?edit_requested=true" target="Blank"> [Google form link] </a>
         </li>
         <li style={{ marginBottom: '10px' }}>
           Rule 2: Participants may enter the competition either individually or
