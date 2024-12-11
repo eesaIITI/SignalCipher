@@ -164,7 +164,7 @@ const Authentication = () => {
         <button
           className="popup-cancel"
           style={{
-            backgroundColor: 'lightgray',
+          
             border: 'none',
             padding: '10px 20px',
             borderRadius: '5px',
@@ -178,8 +178,7 @@ const Authentication = () => {
         <button
           className="popup-proceed"
           style={{
-            backgroundColor: '#007BFF',
-            color: 'white',
+           
             border: 'none',
             padding: '10px 20px',
             borderRadius: '5px',
