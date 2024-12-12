@@ -55,7 +55,7 @@ const Authentication = () => {
       <div className="auth-content">
         <h1 className="head">Welcome Adventurer!</h1>
         <p className="para">
-        Your journey into the enigmatic world of SignalCipher begins here. Decode, solve, and conquer!"
+        "Your journey into the enigmatic world of SignalCipher begins here. Decode, solve, and conquer!"
         </p>
         <button
           className="center-button"
