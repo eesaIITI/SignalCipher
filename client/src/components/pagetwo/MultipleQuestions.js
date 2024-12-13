@@ -77,6 +77,7 @@ function MultipleQuestions() {
       if (questionNo === 2) setVerify1(data.isCorrect);
       if (questionNo === 3) setVerify2(data.isCorrect);
       if (questionNo === 4) setVerify3(data.isCorrect);
+        await  LoadUser();
 
       setError(null); // Clear error if any
     } catch (err) {
