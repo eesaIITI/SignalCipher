@@ -9,8 +9,8 @@ const Authentication = () => {
   const navigate = useNavigate();
   const [showRules, setShowRules] = useState(false);
   
-  //const port  = "https://signal-cipher.vercel.app";
-  const port = "http://localhost:5000";
+  const port  = "https://signal-cipher.vercel.app";
+  // const port = "http://localhost:5000";
 
 
   const storeUserInfo = async () => {

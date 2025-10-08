@@ -4,8 +4,8 @@ import "./UsersList.css";
 function UsersList() {
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
-  // const port  = "https://signal-cipher.vercel.app";
-  const port = "http://localhost:5000";
+  const port  = "https://signal-cipher.vercel.app";
+  // const port = "http://localhost:5000";
   // Fetch all users on component mount
   useEffect(() => {
     fetch( `${port}/getAllUsers`)

@@ -11,8 +11,8 @@
   const port = process.env.PORT || 5000;
 
   app.use(cors({
-  origin: 'http://localhost:3000',    //replace with your frontend's URL
-  // origin:"https://signal-cipher-f.vercel.app",
+  // origin: 'http://localhost:3000',    //replace with your frontend's URL
+  origin:"https://signal-cipher-f.vercel.app",
     methods: ['GET', 'POST'],
     credentials: true,
   }));
