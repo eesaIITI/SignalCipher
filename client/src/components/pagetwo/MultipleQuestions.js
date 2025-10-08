@@ -3,28 +3,57 @@ import { useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import "./PageTwo.css";
-const port  = "https://signal-cipher.vercel.app";
+
+// const port  = "https://signal-cipher.vercel.app";
+const port = "http://localhost:5000";
 
 function MultipleQuestions() {
   const navigate = useNavigate();
   const { user, isAuthenticated, isLoading } = useAuth0();
 
   const [questions, setQuestions] = useState([]);
-  const [ans1, setAns1] = useState(""); // Answer for question 1
-  const [ans2, setAns2] = useState(""); // Answer for question 2
-  const [ans3, setAns3] = useState(""); // Answer for question 3
-  const [verify1, setVerify1] = useState(null); // Verification result for question 1
-  const [verify2, setVerify2] = useState(null); // Verification result for question 2
-  const [verify3, setVerify3] = useState(null); // Verification result for question 3
-  const [loading, setLoading] = useState(true); // Loading state
-  const [error, setError] = useState(""); // Error message
-
+  const [ans1, setAns1] = useState("");
+  const [ans2, setAns2] = useState("");
+  const [ans3, setAns3] = useState("");
+  const [verify1, setVerify1] = useState(null);
+  const [verify2, setVerify2] = useState(null);
+  const [verify3, setVerify3] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
   const [userInfo, setUserInfo] = useState(null);
   const [isSolved2, setIsSolved2] = useState(false);
   const [isSolved3, setIsSolved3] = useState(false);
   const [isSolved4, setIsSolved4] = useState(false);
 
-  // Fetch questions from the backend
+  // ✅ New: check if Q1 is solved
+
+  useEffect(() => {
+      if (!isLoading && !isAuthenticated) {
+        alert("Please log in to access the quiz.");
+        navigate("/"); // redirect to authentication page
+      }
+    }, [isAuthenticated, isLoading, navigate]);
+    
+  const checkAccess = async () => {
+    if (isAuthenticated && user?.email) {
+      try {
+        const response = await axios.get(`${port}/getUserInfo`, {
+          params: { email: user.email },
+        });
+        const solved = response.data.Qns_Solved || [];
+
+        // if Q1 not solved → redirect back
+        if (!solved.includes(1)) {
+          alert("Please solve Question 1 before accessing this page.");
+          navigate("/page-one");
+        }
+      } catch (err) {
+        console.error("Error verifying access:", err);
+      }
+    }
+  };
+
+  // ✅ Fetch questions
   const fetchQuestions = async () => {
     setLoading(true);
     try {
@@ -41,15 +70,29 @@ function MultipleQuestions() {
       setQuestions(fetchedQuestions);
     } catch (err) {
       console.error("Error fetching questions:", err);
-      // setError("Failed to load questions. Please try again.");
     } finally {
       setLoading(false);
     }
   };
 
-  useEffect(() => {
-    fetchQuestions();
-  }, []);
+  // ✅ Load user info (for Solved! markers)
+  const LoadUser = async () => {
+    if (isAuthenticated && user?.email) {
+      try {
+        const response = await axios.get(`${port}/getUserInfo`, {
+          params: { email: user.email },
+        });
+
+        setUserInfo(response.data);
+        const solved = response.data.Qns_Solved || [];
+        setIsSolved2(solved.includes(2));
+        setIsSolved3(solved.includes(3));
+        setIsSolved4(solved.includes(4));
+      } catch (err) {
+        console.error("Error loading user info:", err);
+      }
+    }
+  };
 
   const handleVerify = async (questionNo, answer) => {
     if (!answer) {
@@ -77,57 +120,30 @@ function MultipleQuestions() {
       if (questionNo === 2) setVerify1(data.isCorrect);
       if (questionNo === 3) setVerify2(data.isCorrect);
       if (questionNo === 4) setVerify3(data.isCorrect);
-        await  LoadUser();
 
-      setError(null); // Clear error if any
+      await LoadUser();
+      setError(null);
     } catch (err) {
       console.error("Error verifying answer:", err);
       setError("There was an error verifying the answer. Please try again.");
     }
   };
 
-
-
-  //getting user info
-  const LoadUser = async () => {
-    if (isAuthenticated && user?.email) {
-      try {
-        // Sending the email as a query parameter in the GET request
-        const response = await axios.get(`${port}/getUserInfo`, {
-          params: { email: user.email },  // Email is sent as a query parameter
-        });
-
-        setUserInfo(response.data);
-        setIsSolved2(response.data.Qns_Solved.includes(2));
-        setIsSolved3(response.data.Qns_Solved.includes(3));
-        setIsSolved4(response.data.Qns_Solved.includes(4));
-
-      } catch (err) {
-        console.error('Error loading user info:', err);
-      }
-    }
-
-  };
-
-
-
-  // Fetch question when user is ready
+  // ✅ On page load: check access + load data
   useEffect(() => {
     if (!isLoading && isAuthenticated && user?.email) {
-      fetchQuestions(user.email, "01");
+      checkAccess(); // 🔒 make sure Q1 solved
+      fetchQuestions();
+      LoadUser();
     }
-    LoadUser();
   }, [isLoading, isAuthenticated, user]);
-
-
-
-
-
 
   const handleNext = async () => {
     await LoadUser();
     const requiredQuestions = [2, 3, 4];
-    const isVal = requiredQuestions.every((q) => userInfo.Qns_Solved.includes(q));
+    const isVal = requiredQuestions.every((q) =>
+      userInfo?.Qns_Solved.includes(q)
+    );
 
     if (isVal) {
       navigate("/page-three");
