@@ -10,14 +10,14 @@ const Navbar = () => {
       className="
         fixed top-0 left-0 w-full z-50
         flex items-center justify-between
-        h-16 px-8
+        h-16 px-4 md:px-8
         bg-gray-950/60 backdrop-blur-lg
         shadow-lg shadow-black/20
       "
     >
       {/* Left Side: Title */}
       <a href="/" className="text-decoration-none">
-        <h4 className="text-xl md:text-2xl font-bold text-purple-300 hover:text-purple-200 transition-colors">
+        <h4 className="text-base sm:text-xl md:text-2xl font-bold text-purple-300 hover:text-purple-200 transition-colors">
           SignalCipher: The Hidden Wish
         </h4>
       </a>
@@ -35,7 +35,8 @@ const Navbar = () => {
             className="
               font-semibold text-purple-300
               border-2 border-purple-400
-              py-2 px-5 rounded-lg
+              py-1.5 px-3 sm:py-2 sm:px-5 rounded-lg
+              text-sm sm:text-base
               hover:bg-purple-400 hover:text-white
               transition-all duration-300 ease-in-out
             "
@@ -48,7 +49,8 @@ const Navbar = () => {
             className="
               font-semibold text-purple-300
               border-2 border-purple-400
-              py-2 px-5 rounded-lg
+              py-1.5 px-3 sm:py-2 sm:px-5 rounded-lg
+              text-sm sm:text-base
               hover:bg-purple-400 hover:text-white
               transition-all duration-300 ease-in-out
             "
