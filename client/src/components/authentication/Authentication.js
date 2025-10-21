@@ -111,7 +111,7 @@ const Authentication = () => {
                 </li>
                 <li className="flex items-start space-x-3">
                   <span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary/10 text-primary flex items-center justify-center text-sm font-bold mt-0.5">6</span>
-                  <span>The competition will run from 13/12/2024 to 3/1/2025. Ensure that all submissions are made within this time frame.</span>
+                  <span>The competition will run from Dec 2025 to Jan 2026. Ensure that all submissions are made within this time frame.</span>
                 </li>
                 <li className="flex items-start space-x-3">
                   <span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary/10 text-primary flex items-center justify-center text-sm font-bold mt-0.5">7</span>
