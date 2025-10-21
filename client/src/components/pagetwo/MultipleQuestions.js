@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
-import "./PageTwo.css";
+import { toast } from 'react-toastify';
+import Loader from "../Loader";
 
-const port  = "https://signal-cipher.vercel.app";
 // const port = "http://localhost:5000";
+const port  = "https://signal-cipher.vercel.app";
 
 function MultipleQuestions() {
   const navigate = useNavigate();
@@ -19,21 +20,19 @@ function MultipleQuestions() {
   const [verify2, setVerify2] = useState(null);
   const [verify3, setVerify3] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
   const [userInfo, setUserInfo] = useState(null);
   const [isSolved2, setIsSolved2] = useState(false);
   const [isSolved3, setIsSolved3] = useState(false);
   const [isSolved4, setIsSolved4] = useState(false);
-
-  // ✅ New: check if Q1 is solved
+  const [verifying, setVerifying] = useState({ q2: false, q3: false, q4: false });
 
   useEffect(() => {
-      if (!isLoading && !isAuthenticated) {
-        alert("Please log in to access the quiz.");
-        navigate("/"); // redirect to authentication page
-      }
-    }, [isAuthenticated, isLoading, navigate]);
-    
+    if (!isLoading && !isAuthenticated) {
+      toast.error("Please log in to access the quiz.");
+      navigate("/");
+    }
+  }, [isAuthenticated, isLoading, navigate]);
+
   const checkAccess = async () => {
     if (isAuthenticated && user?.email) {
       try {
@@ -42,9 +41,8 @@ function MultipleQuestions() {
         });
         const solved = response.data.Qns_Solved || [];
 
-        // if Q1 not solved → redirect back
         if (!solved.includes(1)) {
-          alert("Please solve Question 1 before accessing this page.");
+          toast.error("Please solve Question 1 before accessing this page.");
           navigate("/page-one");
         }
       } catch (err) {
@@ -53,7 +51,6 @@ function MultipleQuestions() {
     }
   };
 
-  // ✅ Fetch questions
   const fetchQuestions = async () => {
     setLoading(true);
     try {
@@ -70,12 +67,12 @@ function MultipleQuestions() {
       setQuestions(fetchedQuestions);
     } catch (err) {
       console.error("Error fetching questions:", err);
+      toast.error("Failed to load questions");
     } finally {
       setLoading(false);
     }
   };
 
-  // ✅ Load user info (for Solved! markers)
   const LoadUser = async () => {
     if (isAuthenticated && user?.email) {
       try {
@@ -95,15 +92,18 @@ function MultipleQuestions() {
   };
 
   const handleVerify = async (questionNo, answer) => {
-    if (!answer) {
-      setError("Please enter an answer before verifying.");
+    if (!answer.trim()) {
+      toast.warning("Please enter an answer before verifying.");
       return;
     }
 
     if (!isAuthenticated || !user?.email) {
-      setError("User authentication failed. Please log in.");
+      toast.error("User authentication failed. Please log in.");
       return;
     }
+
+    const qKey = `q${questionNo}`;
+    setVerifying(prev => ({ ...prev, [qKey]: true }));
 
     try {
       const response = await fetch(`${port}/validateAnswer`, {
@@ -117,22 +117,31 @@ function MultipleQuestions() {
       });
 
       const data = await response.json();
-      if (questionNo === 2) setVerify1(data.isCorrect);
-      if (questionNo === 3) setVerify2(data.isCorrect);
-      if (questionNo === 4) setVerify3(data.isCorrect);
+      if (questionNo === 2) {
+        setVerify1(data.isCorrect);
+        toast[data.isCorrect ? 'success' : 'error'](data.isCorrect ? "✅ Correct!" : "❌ Incorrect");
+      }
+      if (questionNo === 3) {
+        setVerify2(data.isCorrect);
+        toast[data.isCorrect ? 'success' : 'error'](data.isCorrect ? "✅ Correct!" : "❌ Incorrect");
+      }
+      if (questionNo === 4) {
+        setVerify3(data.isCorrect);
+        toast[data.isCorrect ? 'success' : 'error'](data.isCorrect ? "✅ Correct!" : "❌ Incorrect");
+      }
 
       await LoadUser();
-      setError(null);
     } catch (err) {
       console.error("Error verifying answer:", err);
-      setError("There was an error verifying the answer. Please try again.");
+      toast.error("There was an error verifying the answer. Please try again.");
+    } finally {
+      setVerifying(prev => ({ ...prev, [qKey]: false }));
     }
   };
 
-  // ✅ On page load: check access + load data
   useEffect(() => {
     if (!isLoading && isAuthenticated && user?.email) {
-      checkAccess(); // 🔒 make sure Q1 solved
+      checkAccess();
       fetchQuestions();
       LoadUser();
     }
@@ -148,317 +157,197 @@ function MultipleQuestions() {
     if (isVal) {
       navigate("/page-three");
     } else {
-      setError("Please ensure all answers are correct before proceeding.");
+      toast.warning("Please ensure all answers are correct before proceeding.");
     }
   };
 
   const handlePrevious = () => navigate(-1);
 
-  if (loading) return <div className="loading">Loading questions...</div>;
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-[calc(100vh-200px)]">
+        <Loader label="Loading questions..." />
+      </div>
+    );
+  }
 
   return (
-    <div className="question-container">
-      <h1>Answer the Questions</h1>
+  // We add pt-24 (padding-top) and pb-16 (padding-bottom) here.
+  // You may need to adjust these numbers to perfectly fit your header/footer height.
+  <div className="max-w-5xl mx-auto px-4 py-8 space-y-8 animate-fade-in pt-24 pb-16">
+    <h1 className="text-3xl sm:text-4xl font-bold text-gradient text-center mb-8">
+      Answer the Questions
+    </h1>
 
-      {/* Question 2 */}
-      <div className="question-box">
-        <div className="question-content">
-
-          <div className="question-header">
-            <div style={{ margin: "auto" }}>    <h2 className="question-title"><span style={{ color: "orange" }}>2.</span> {questions[0]?.Q_Title}</h2> </div>
-            <span className={isSolved2 ? "solved" : "unsolved"}>
-              {isSolved2 ? "Solved!" : "Not solved"}
-            </span>
-          </div>
-          <p className="para1">{questions[0]?.Q_Des}
-          <div style={{
-          display: 'flex', width: '100%', justifyContent:"center", marginBottom: '20px' ,marginTop:'30px',gap:'40px'
-          
-        }}>
-          <div style={{ flex: 1, minWidth: '70%', }}>
-            <p style={{ margin: 0, fontSize: '1rem' }}> {questions[0]?.A_Des}
-            </p>
-          </div>
-
-          <div style={{ flex: 1, minWidth: 0 }}>
-            <img
-              src={questions[0]?.A_Img}
-              alt="Question 2a"
-              style={{ maxWidth: '100%', height: 'auto', display: 'block' }}
-            />
-          </div>
-        </div>
-
-        <div style={{
-          display: 'flex', width: '100%', justifyContent:"center", marginBottom: '20px' ,marginTop:'30px',gap:'40px'
-          
-        }}>
-          <div style={{ flex: 1, minWidth: '70%' }}>
-            <p style={{ margin: 0, fontSize: '1rem' }}> {questions[0]?.B_Des}
-            </p>
-          </div>
-
-          <div style={{ flex: 1, minWidth: 0 }}>
-            <img
-              src={questions[0]?.B_Img}
-              alt="Question 2a"
-              style={{ maxWidth: '100%', height: 'auto', display: 'block' }}
-            />
-          </div>
-        </div>
-
-        <div style={{
-          display: 'flex', width: '100%', justifyContent:"center", marginBottom: '20px' ,marginTop:'30px',gap:'40px'
-          
-        }}>
-          <div style={{ flex: 1,minWidth: '70%' }}>
-            <p style={{ margin: 0, fontSize: '1rem' }}> {questions[0]?.C_Des}
-            </p>
-          </div>
-
-          <div style={{ flex: 1, minWidth: 0 }}>
-            <img
-              src={questions[0]?.C_Img}
-              alt="Question 2a"
-              style={{ maxWidth: '100%', height: 'auto', display: 'block' }}
-            />
-          </div>
-        </div>
-
-        <div style={{
-          display: 'flex', width: '100%', justifyContent:"center", marginBottom: '20px' ,marginTop:'30px',gap:'40px'
-          
-        }}>
-          <div style={{ flex: 1, minWidth: '70%' }}>
-            <p style={{ margin: 0, fontSize: '1rem' }}> {questions[0]?.D_Des}
-            </p>
-          </div>
-
-          <div style={{ flex: 1, minWidth: 0 }}>
-            <img
-              src={questions[0]?.D_Img}
-              alt="Question 2a"
-              style={{ maxWidth: '100%', height: 'auto', display: 'block' }}
-            />
-          </div>
-        </div>
-
-        <div style={{
-          display: 'flex', width: '100%', justifyContent:"center", marginBottom: '20px' ,marginTop:'30px',gap:'40px'
-          
-        }}>
-          <div style={{ flex: 1, minWidth: '70%' }}>
-            <p style={{ margin: 0, fontSize: '1rem' }}> {questions[0]?.E_Des}
-            </p>
-          </div>
-
-          <div style={{ flex: 1, minWidth: 0 }}>
-            <img
-              src={questions[0]?.E_Img}
-              alt="Question 2a"
-              style={{ maxWidth: '100%', height: 'auto', display: 'block' }}
-            />
-          </div>
-        </div>
-
-          </p>
+    {/* Question 2 */}
+    <div className="card animate-scale-in">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+        <h2 className="text-2xl font-bold">
+          <span className="text-accent">2.</span> {questions[0]?.Q_Title}
+        </h2>
+        <span className={isSolved2 ? "badge-success" : "badge-warning"}>
+          {isSolved2 ? "✓ Solved" : "Not solved"}
+        </span>
+      </div>
       
-          
+      <p className="text-text-secondary mb-6">{questions[0]?.Q_Des}</p>
 
-        </div>
-
-   
-
-         <div className="input-verify-container">
-          <input
-            type="text"
-            placeholder="Your answer"
-            value={ans1}
-            onChange={(e) => setAns1(e.target.value)}
-            className="answer-input"
-          />
-          <button
-            onClick={() => handleVerify(2, ans1)}
-            className="verify-button"
-          >
-            Verify
-          </button>
-        </div>
-        {verify1 !== null && (
-          <p className={`feedback ${verify1 ? "correct" : "incorrect"}`}>
-            {verify1 ? "✅ Correct" : "❌ Incorrect"}
-          </p>
-        )}
+      <div className="space-y-6 mb-6">
+        {[
+          { des: questions[0]?.A_Des, img: questions[0]?.A_Img, label: 'A' },
+          { des: questions[0]?.B_Des, img: questions[0]?.B_Img, label: 'B' },
+          { des: questions[0]?.C_Des, img: questions[0]?.C_Img, label: 'C' },
+          { des: questions[0]?.D_Des, img: questions[0]?.D_Img, label: 'D' },
+          { des: questions[0]?.E_Des, img: questions[0]?.E_Img, label: 'E' },
+        ].map((item, idx) => (
+          <div key={idx} className="flex flex-col lg:flex-row gap-4 p-4 bg-surface-hover rounded-lg">
+            <div className="flex-1">
+              <span className="font-semibold text-primary">{item.label}.</span> {item.des}
+            </div>
+            {item.img && (
+              <div className="lg:w-48 flex-shrink-0">
+                <img src={item.img} alt={`Option ${item.label}`} className="w-full h-auto rounded" />
+              </div>
+            )}
+          </div>
+        ))}
       </div>
 
-
-
-
-      {/* Question 3 */}
-      <div className="question-box">
-        <div className="question-content">
-
-          <div className="question-header">
-            <div style={{ margin: "auto" }}>   <h2 className="question-title"><span style={{ color: "orange" }}>3. </span> {questions[1]?.Q_Title}</h2> </div>
-            <span className={isSolved3 ? "solved" : "unsolved"}>
-              {isSolved3 ? "Solved!" : "Not solved"}
-            </span>
-          </div>
-          <p className="para1">{questions[1]?.Q_Des}</p>
-         
-        </div>
-
-{/* // Two buttons side by side */}
-<div style={{ display: "flex", justifyContent: "center", gap: "50px", marginTop: "10px" }}>
-  <a href="https://drive.google.com/file/d/1bH58YIwupqK4rMcM0JThypm14_4RbVJ5/view?usp=sharing" target="Blank"
-    
-    style={{
-      backgroundColor: "#3b82f6", // Blue background
-      color: "#fff",             // White text
-      padding: "8px 16px",       // Padding
-      borderRadius: "4px",       // Rounded corners
-      border: "none",            // No border
-      cursor: "pointer",         // Pointer cursor
-      fontSize: "16px",          // Font size
-    }}
-    onMouseOver={(e) => (e.target.style.backgroundColor = "#2563eb")} // Hover effect
-    onMouseOut={(e) => (e.target.style.backgroundColor = "#3b82f6")}
-  >
-    Audio file
-  </a>
-  <a     href="https://drive.google.com/file/d/1pUEF6lFwlNMEUc6gzwCWkeLN2z0iNw7d/view?usp=sharing"   target="Blank" 
-    
-    style={{
-      backgroundColor: "#22c55e", // Green background
-      color: "#fff",              // White text
-      padding: "8px 16px",        // Padding
-      borderRadius: "4px",        // Rounded corners
-      border: "none",             // No border
-      cursor: "pointer",          // Pointer cursor
-      fontSize: "16px",           // Font size
-    }}
-    onMouseOver={(e) => (e.target.style.backgroundColor = "#16a34a")} // Hover effect
-    onMouseOut={(e) => (e.target.style.backgroundColor = "#22c55e")}
-  >
-    Python file
-  </a>
-</div>
-
-
-
-        <div className="input-verify-container">
-          <input
-            type="text"
-            placeholder="Your answer"
-            value={ans2}
-            onChange={(e) => setAns2(e.target.value)}
-            className="answer-input"
-          />
-          <button
-            onClick={() => handleVerify(3, ans2)}
-            className="verify-button"
-          >
-            Verify
-          </button>
-        </div>
-        {verify2 !== null && (
-          <p className={`feedback ${verify2 ? "correct" : "incorrect"}`}>
-            {verify2 ? "✅ Correct" : "❌ Incorrect"}
-          </p>
-        )}
-      </div>
-
-      {/* Question 4 */}
-      <div className="question-box">
-        <div className="question-content">
-
-          <div className="question-header">
-            <div style={{ margin: "auto" }}>   <h2 className="question-title"><span style={{ color: "orange" }}>4.</span> {questions[2]?.Q_Title}</h2>     </div>
-            <span className={isSolved4 ? "solved" : "unsolved"}>
-              {isSolved4 ? "Solved!" : "Not solved"}
-            </span>
-          </div>
-          <p className="para1">{questions[2]?.Q_Des}
-
-
-          <div style={{ display: 'flex', width: '100%', gap: '40px', justifyContent:"center",marginBottom: '20px',marginTop:'30px' }}>
-          <div style={{ flex: 1, minWidth: '70%' }}>
-            <p style={{ margin: 0, fontSize: '1rem' }}>{questions[2]?.A_Des}
-            </p>
-          </div>
-
-          <div style={{ flex: 1, minWidth: 0 }}>
-            <img
-              src={questions[2]?.A_Img}
-              alt="Question 4a"
-              style={{ maxWidth: '120%', height: 'auto', display: 'block' }}
-            />
-          </div>
-        </div>
-        <div style={{ display: 'flex', width: '100%', justifyContent:"center", gap: '40px', marginBottom: '20px' }}>
-          <div style={{ flex: 1, minWidth: '70%' }}>
-            <p style={{ margin: 0, fontSize: '1rem' }}>{questions[2]?.B_Des}</p>
-          </div>
-
-          <div style={{ flex: 1, minWidth: 0 }}>
-            <img
-              src={questions[2]?.B_Img}
-              alt="Question 4b"
-              style={{ maxWidth: '120%', height: 'auto', display: 'block' }}
-            />
-          </div>
-        </div>
-        <div style={{ display: 'flex', width: '100%', justifyContent:"center", gap: '40px', marginBottom: '20px' }}>
-          <div style={{ flex: 1, minWidth: '70%' }}>
-            <p style={{ margin: 0, fontSize: '1rem' }}>{questions[2]?.C_Des}</p>
-          </div>
-
-          <div style={{ flex: 1, minWidth: 0 }}>
-           
-          </div>
-        </div>
-          </p>
-
-        </div>
-
-       
-        <div className="input-verify-container">
-          <input
-            type="text"
-            placeholder="Your answer"
-            value={ans3}
-            onChange={(e) => setAns3(e.target.value)}
-            className="answer-input"
-          />
-          <button
-            onClick={() => handleVerify(4, ans3)}
-            className="verify-button"
-          >
-            Verify
-          </button>
-        </div>
-        {verify3 !== null && (
-          <p className={`feedback ${verify3 ? "correct" : "incorrect"}`}>
-            {verify3 ? "✅ Correct" : "❌ Incorrect"}
-          </p>
-        )}
-      </div>
-
-      {/* Navigation buttons */}
-      {/* Error message */}
-      {error && <p className="feedback incorrect">{error}</p>}
-      <div className="navigation-container">
-        <button onClick={handlePrevious} className="navigation-button">
-          Previous
-        </button>
-        <button onClick={handleNext} className="navigation-button">
-          Next
+      <div className="flex flex-col sm:flex-row gap-3">
+        <input
+          type="text"
+          placeholder="Your answer"
+          value={ans1}
+          onChange={(e) => setAns1(e.target.value)}
+          onKeyPress={(e) => e.key === 'Enter' && handleVerify(2, ans1)}
+          className="input-field flex-1"
+          disabled={verifying.q2}
+        />
+        <button
+          onClick={() => handleVerify(2, ans1)}
+          className="btn-primary sm:w-auto"
+          disabled={verifying.q2}
+        >
+          {verifying.q2 ? <Loader label="" /> : 'Verify'}
         </button>
       </div>
-
-
     </div>
-  );
+
+    {/* Question 3 */}
+    <div className="card animate-scale-in">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+        <h2 className="text-2xl font-bold">
+          <span className="text-accent">3.</span> {questions[1]?.Q_Title}
+        </h2>
+        <span className={isSolved3 ? "badge-success" : "badge-warning"}>
+          {isSolved3 ? "✓ Solved" : "Not solved"}
+        </span>
+      </div>
+      
+      <p className="text-text-secondary mb-6">{questions[1]?.Q_Des}</p>
+
+      <div className="flex flex-wrap gap-4 justify-center mb-6">
+        <a
+          href="https://drive.google.com/file/d/1bH58YIwupqK4rMcM0JThypm14_4RbVJ5/view?usp=sharing"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn-primary"
+        >
+          🎵 Audio file
+        </a>
+        <a
+          href="https://drive.google.com/file/d/1pUEF6lFwlNMEUc6gzwCWkeLN2z0iNw7d/view?usp=sharing"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn-secondary"
+        >
+          🐍 Python file
+        </a>
+      </div>
+
+      <div className="flex flex-col sm:flex-row gap-3">
+        <input
+          type="text"
+          placeholder="Your answer"
+          value={ans2}
+          onChange={(e) => setAns2(e.target.value)}
+          onKeyPress={(e) => e.key === 'Enter' && handleVerify(3, ans2)}
+          className="input-field flex-1"
+          disabled={verifying.q3}
+        />
+        <button
+          onClick={() => handleVerify(3, ans2)}
+          className="btn-primary sm:w-auto"
+          disabled={verifying.q3}
+        >
+          {verifying.q3 ? <Loader label="" /> : 'Verify'}
+        </button>
+      </div>
+    </div>
+
+    {/* Question 4 */}
+    <div className="card animate-scale-in">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+        <h2 className="text-2xl font-bold">
+          <span className="text-accent">4.</span> {questions[2]?.Q_Title}
+        </h2>
+        <span className={isSolved4 ? "badge-success" : "badge-warning"}>
+          {isSolved4 ? "✓ Solved" : "Not solved"}
+        </span>
+      </div>
+      
+      <p className="text-text-secondary mb-6">{questions[2]?.Q_Des}</p>
+
+      <div className="space-y-6 mb-6">
+        {[
+          { des: questions[2]?.A_Des, img: questions[2]?.A_Img, label: 'A' },
+          { des: questions[2]?.B_Des, img: questions[2]?.B_Img, label: 'B' },
+          { des: questions[2]?.C_Des, img: null, label: 'C' },
+        ].map((item, idx) => (
+          <div key={idx} className="flex flex-col lg:flex-row gap-4 p-4 bg-surface-hover rounded-lg">
+            <div className="flex-1">
+              <span className="font-semibold text-primary">{item.label}.</span> {item.des}
+            </div>
+            {item.img && (
+              <div className="lg:w-48 flex-shrink-0">
+                <img src={item.img} alt={`Option ${item.label}`} className="w-full h-auto rounded" />
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+
+      <div className="flex flex-col sm:flex-row gap-3">
+        <input
+          type="text"
+          placeholder="Your answer"
+          value={ans3}
+          onChange={(e) => setAns3(e.target.value)}
+          onKeyPress={(e) => e.key === 'Enter' && handleVerify(4, ans3)}
+          className="input-field flex-1"
+          disabled={verifying.q4}
+        />
+        <button
+          onClick={() => handleVerify(4, ans3)}
+          className="btn-primary sm:w-auto"
+          disabled={verifying.q4}
+        >
+          {verifying.q4 ? <Loader label="" /> : 'Verify'}
+        </button>
+      </div>
+    </div>
+
+    {/* Navigation */}
+    <div className="flex justify-between gap-4 pt-4">
+      <button onClick={handlePrevious} className="btn-secondary">
+        ← Previous
+      </button>
+      <button onClick={handleNext} className="btn-primary">
+        Next →
+      </button>
+    </div>
+  </div>
+);
 }
 
 export default MultipleQuestions;
