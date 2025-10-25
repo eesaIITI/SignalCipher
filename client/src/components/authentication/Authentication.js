@@ -9,13 +9,16 @@ const Authentication = () => {
   const navigate = useNavigate();
   const [showRules, setShowRules] = useState(false);
   
+  
   // const port = "http://localhost:5000";
   const port  = "https://signal-cipher.vercel.app";
 
   const storeUserInfo = async () => {
     try {
       const response = await axios.post(`${port}/Userinfo`, {
-        UserEmail: user.email
+        UserEmail: user.email,
+        UserName : user.name
+
       });
       console.log(response.data.message);
     } catch (error) {
@@ -56,7 +59,7 @@ const Authentication = () => {
     <div className="flex items-center justify-center min-h-screen px-4 py-12 animate-fade-in">
       <div className="card max-w-2xl w-full text-center animate-scale-in">
         <h1 className="text-3xl sm:text-4xl font-bold text-gradient mb-6">
-          Welcome Adventurer!
+          Welcome {user ? user.name : "to SignalCipher"}!
         </h1>
         <p className="text-text-secondary text-base sm:text-lg leading-relaxed mb-8">
           "Your journey into the enigmatic world of SignalCipher begins here. Decode, solve, and conquer!"

@@ -30,7 +30,8 @@
     //new user
     app.post('/Userinfo', async (req, res) => {
       // Extract UserEmail from the request body
-      const { UserEmail } = req.body;
+      const { UserEmail , UserName } = req.body;
+      
     
       // Check if the user already exists in the database
       const exist = await UsersModel.findOne({ UserEmail });
@@ -40,7 +41,7 @@
     
       try {
         // Create a new user and save it to the database
-        const NewUser = new UsersModel({ UserEmail });
+        const NewUser = new UsersModel({ UserEmail,UserName });
         await NewUser.save();
         res.send("Data Inserted");
       } catch (err) {
