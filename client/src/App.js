@@ -9,26 +9,29 @@ import LastQuestion from "./components/pagethree/LastQuestion";
 import UsersList from "./components/UsersList";
 import ProtectedRoute from "./components/authentication/ProtectedRoute";
 import Toast from "./components/Toast";
+import TimeLock from "./components/TimeLock"; // Import the component
 
 const App = () => {
   return (
     <Router>
       <div className="min-h-screen flex flex-col relative">
-        <Navbar />
-        <main className="flex-1 relative z-10">
-          <Routes>
-            <Route path="/" element={<Authentication />} />
-            <Route path="/page-one" element={<FirstQuestion />} />
-            <Route path="/page-two" element={<MultipleQuestions />} />
-            <Route path="/page-three" element={<LastQuestion />} />
-            <Route
-              path="/all-users"
-              element={<ProtectedRoute element={<UsersList />} />}
-            />
-          </Routes>
-        </main>
-        <Footer />
-        <Toast />
+        <TimeLock> {/* Wrap your layout in the TimeLock */}
+          <Navbar />
+          <main className="flex-1 relative z-10">
+            <Routes>
+              <Route path="/" element={<Authentication />} />
+              <Route path="/page-one" element={<FirstQuestion />} />
+              <Route path="/page-two" element={<MultipleQuestions />} />
+              <Route path="/page-three" element={<LastQuestion />} />
+              <Route
+                path="/all-users"
+                element={<ProtectedRoute element={<UsersList />} />}
+              />
+            </Routes>
+          </main>
+          <Footer />
+          <Toast />
+        </TimeLock>
       </div>
     </Router>
   );

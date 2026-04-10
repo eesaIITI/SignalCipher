@@ -154,10 +154,7 @@ function LastQuestion() {
   }
 
   return (
-    // This new outer div centers everything on the page
     <div className="min-h-screen flex items-center justify-center">
-    
-      {/* Your original content container */}
       <div className="max-w-4xl w-full px-4 py-8 animate-fade-in">
         {!showSuccess ? (
           <>
@@ -175,10 +172,35 @@ function LastQuestion() {
                 {question.Q_Des}
               </p>
 
+              {/* Media Link - if exists */}
+              {question.Q_Img && (
+                <div className="mb-8">
+                  <a
+                    href={question.Q_Img}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-flex items-center gap-3 px-5 py-3 bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white rounded-lg font-semibold shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-300 w-full sm:w-auto justify-center sm:justify-start"
+                  >
+                    <span className="text-2xl group-hover:scale-110 transition-transform duration-300">
+                      📄
+                    </span>
+                    <div className="flex flex-col text-left">
+                      <span className="text-xs opacity-90 font-normal leading-tight">Click to open:</span>
+                      <span className="text-base font-bold leading-tight">View Media</span>
+                    </div>
+                    <span className="ml-2 text-xl group-hover:translate-x-1 transition-transform duration-300">
+                      →
+                    </span>
+                  </a>
+                  <p className="text-xs text-gray-400 mt-2 italic">Opens in new tab • No download needed</p>
+                </div>
+              )}
+
               <div className="flex flex-col sm:flex-row gap-3">
                 <input
                   type="text"
                   placeholder="Your answer"
+                  value={selectedOption}
                   onChange={(e) => setSelectedOption(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && handleVerify()}
                   className="input-field flex-1"
@@ -226,7 +248,6 @@ function LastQuestion() {
           </div>
         )}
       </div>
-      
     </div>
   );
 }

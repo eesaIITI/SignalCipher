@@ -134,12 +134,10 @@ function FirstQuestion() {
   }
 
   return (
-    // This new outer div will center everything on the page
     <div className="min-h-screen flex items-center justify-center">
-    
-      {/* This is your original container, now a child of the flex container */}
       <div className="max-w-4xl w-full px-4 py-8 animate-fade-in">
         <div className="card animate-scale-in">
+          {/* Header */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
             <h1 className="text-2xl sm:text-3xl font-bold">
               <span className="text-accent">1.</span> {question.Q_Title}
@@ -149,10 +147,36 @@ function FirstQuestion() {
             </span>
           </div>
 
+          {/* Question Description */}
           <p className="text-text-secondary text-base sm:text-lg leading-relaxed mb-8">
             {question.Q_Des}
           </p>
 
+          {/* Media Link - if exists */}
+          {question.Q_Img && (
+            <div className="mb-8">
+              <a
+                href={question.Q_Img}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center gap-3 px-5 py-3 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white rounded-lg font-semibold shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-300 w-full sm:w-auto justify-center sm:justify-start"
+              >
+                <span className="text-2xl group-hover:scale-110 transition-transform duration-300">
+                  🎬
+                </span>
+                <div className="flex flex-col text-left">
+                  <span className="text-xs opacity-90 font-normal leading-tight">Click to open:</span>
+                  <span className="text-base font-bold leading-tight">View Media</span>
+                </div>
+                <span className="ml-2 text-xl group-hover:translate-x-1 transition-transform duration-300">
+                  →
+                </span>
+              </a>
+              <p className="text-xs text-gray-400 mt-2 italic">Opens in new tab • No download needed</p>
+            </div>
+          )}
+
+          {/* Answer Input and Verification */}
           <div className="space-y-4">
             <div className="flex flex-col sm:flex-row gap-3">
               <input
@@ -175,13 +199,13 @@ function FirstQuestion() {
           </div>
         </div>
 
+        {/* Navigation */}
         <div className="flex justify-end mt-6">
           <button onClick={handleNext} className="btn-primary">
             Next →
           </button>
         </div>
       </div>
-
     </div>
   );
 }
