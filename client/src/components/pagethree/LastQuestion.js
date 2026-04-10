@@ -241,7 +241,7 @@ function LastQuestion() {
               </p>
               <p>
                 Thank you for participating and showcasing your skills.
-                <span className="font-semibold text-accent">Happy New Year!</span>
+                
               </p>
               <p>
                 Stay tuned for further updates and information about prizes. We will be back soon with more exciting news! 😉
