@@ -41,21 +41,13 @@ const TimeLock = ({ children }) => {
     return () => clearInterval(intervalId);
   }, []);
 
-  const handleAdminBypass = async () => {
+  const handleAdminBypass = () => {
     const password = prompt("Enter Admin Password:");
     
     if (!password) return; 
 
-    const encoder = new TextEncoder();
-    const data = encoder.encode(password);
-    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    const hashedInput = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-
-    
-    const targetHash = "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9";
-
-    if (hashedInput === targetHash) {
+    // Simply check the exact password string
+    if (password === "eesaadmin890") {
       localStorage.setItem("adminBypass", "true");
       setIsAdmin(true);
     } else {
