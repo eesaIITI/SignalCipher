@@ -79,7 +79,7 @@ const TimeLock = ({ children }) => {
       </h1>
       
       <p className="text-xl md:text-2xl text-blue-400 mb-8">
-        The event will begin at 5:30 PM IST.
+        The event will begin at 6:30 PM IST.
       </p>
 
       {/* Countdown Timer Container */}
