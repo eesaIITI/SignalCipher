@@ -131,6 +131,7 @@ function LastQuestion() {
       fetchQuestions(user.email, "5");
       LoadUser();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading, isAuthenticated, user]);
 
   const handleSubmit = async () => {

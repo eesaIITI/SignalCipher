@@ -145,6 +145,7 @@ function MultipleQuestions() {
       fetchQuestions();
       LoadUser();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading, isAuthenticated, user]);
 
   const handleNext = async () => {

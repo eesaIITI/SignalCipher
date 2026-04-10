@@ -108,6 +108,7 @@ function FirstQuestion() {
       fetchQuestions(user.email, "1");
       LoadUser();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading, isAuthenticated, user]);
 
   const handleNext = async () => {
