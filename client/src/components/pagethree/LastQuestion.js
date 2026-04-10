@@ -240,7 +240,7 @@ function LastQuestion() {
                 You have successfully completed <span className="font-bold text-primary">SignalCipher</span>—well done!
               </p>
               <p>
-                Thank you for participating and showcasing your skills. EESA wishes you a{" "}
+                Thank you for participating and showcasing your skills.
                 <span className="font-semibold text-accent">Happy New Year!</span>
               </p>
               <p>
