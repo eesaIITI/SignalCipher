@@ -16,8 +16,11 @@ function MultipleQuestions() {
   const [ans1, setAns1] = useState("");
   const [ans2, setAns2] = useState("");
   const [ans3, setAns3] = useState("");
+  // eslint-disable-next-line no-unused-vars
   const [verify1, setVerify1] = useState(null);
+  // eslint-disable-next-line no-unused-vars
   const [verify2, setVerify2] = useState(null);
+  // eslint-disable-next-line no-unused-vars
   const [verify3, setVerify3] = useState(null);
   const [loading, setLoading] = useState(true);
   const [userInfo, setUserInfo] = useState(null);

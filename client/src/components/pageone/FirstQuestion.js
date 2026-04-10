@@ -11,7 +11,9 @@ const port  = "https://signal-cipher.vercel.app";
 function FirstQuestion() {
   const [question, setQuestion] = useState(null);
   const [selectedOption, setSelectedOption] = useState("");
+  // eslint-disable-next-line no-unused-vars
   const [isCorrect, setIsCorrect] = useState(false);
+  // eslint-disable-next-line no-unused-vars
   const [isVerified, setIsVerified] = useState(false);
   const [isSolved, setIsSolved] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
