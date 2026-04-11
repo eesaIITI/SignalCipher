@@ -15,7 +15,7 @@ const TimeLock = ({ children }) => {
 
       // Set target time to 5:30 PM (17:30:00) IST today
       const targetTime = new Date(istNow);
-      targetTime.setHours(18, 30, 0);
+      targetTime.setHours(12, 01, 0);
 
       // Calculate difference in milliseconds
       const difference = targetTime - istNow;
