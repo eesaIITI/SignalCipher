@@ -9,13 +9,13 @@ import LastQuestion from "./components/pagethree/LastQuestion";
 import UsersList from "./components/UsersList";
 import ProtectedRoute from "./components/authentication/ProtectedRoute";
 import Toast from "./components/Toast";
-import TimeLock from "./components/TimeLock"; // Import the component
+
 
 const App = () => {
   return (
     <Router>
       <div className="min-h-screen flex flex-col relative">
-        <TimeLock> {/* Wrap your layout in the TimeLock */}
+        {/* Wrap your layout in the TimeLock */}
           <Navbar />
           <main className="flex-1 relative z-10">
             <Routes>
@@ -31,7 +31,7 @@ const App = () => {
           </main>
           <Footer />
           <Toast />
-        </TimeLock>
+       
       </div>
     </Router>
   );
